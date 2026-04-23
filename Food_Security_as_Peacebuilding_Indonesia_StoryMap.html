@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Food Security as Peacebuilding: Addressing Structural Violence in Indonesia's Food System</title>
+</head>
+<body>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #fafafa; padding: 2rem; max-width: 960px; margin: 0 auto; }
+
+.tool-switcher { display: flex; gap: 8px; margin-bottom: 2rem; }
+.tool-btn { font-size: 13px; font-weight: 500; padding: 8px 20px; border-radius: 24px; border: 1.5px solid #1B3A5C; background: #fff; color: #1B3A5C; cursor: pointer; transition: all 0.15s; }
+.tool-btn.active { background: #1B3A5C; color: #fff; }
+.tool-btn:hover:not(.active) { background: #EEF4FA; }
+
+.tool-view { display: none; }
+.tool-view.active { display: block; }
+
+#storymap { width: 100%; }
+.hero { background: #1B3A5C; color: #fff; padding: 2.5rem 2rem 2rem; border-radius: 12px; margin-bottom: 2rem; }
+.hero-label { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; color: #7BAFD4; text-transform: uppercase; margin-bottom: 0.5rem; }
+.hero h1 { font-size: 24px; font-weight: 500; line-height: 1.3; color: #fff; margin-bottom: 0.4rem; }
+.hero p { font-size: 14px; color: #B5D4F4; line-height: 1.6; max-width: 560px; }
+.hero-meta { display: flex; gap: 2rem; margin-top: 1.2rem; flex-wrap: wrap; }
+.hero-meta span { font-size: 12px; color: #7BAFD4; }
+.hero-meta strong { color: #fff; font-weight: 500; }
+
+.nav { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.nav-btn { font-size: 12px; font-weight: 500; padding: 6px 14px; border-radius: 20px; border: 0.5px solid #ccc; background: #fff; color: #666; cursor: pointer; transition: all 0.15s; }
+.nav-btn.active { background: #1B3A5C; color: #fff; border-color: #1B3A5C; }
+.nav-btn:hover:not(.active) { background: #f5f5f5; color: #111; }
+
+.section { display: none; animation: fadeIn 0.25s ease; }
+.section.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: start; }
+.card { background: #fff; border: 0.5px solid #e0e0e0; border-radius: 12px; padding: 1.25rem; }
+.card h3 { font-size: 15px; font-weight: 500; color: #111; margin-bottom: 0.6rem; }
+.card p, .card li { font-size: 13px; color: #555; line-height: 1.65; }
+.card ul { padding-left: 1rem; }
+.card li { margin-bottom: 4px; }
+
+.accent-card { border-left: 3px solid #185FA5; background: #f5f5f5; border-radius: 0 8px 8px 0; padding: 1rem 1.25rem; margin: 1rem 0; }
+.accent-card.green { border-left-color: #3B6D11; }
+.accent-card.amber { border-left-color: #854F0B; }
+.accent-card.coral { border-left-color: #993C1D; }
+.accent-card.purple { border-left-color: #534AB7; }
+.accent-card p { font-size: 13px; color: #555; line-height: 1.65; }
+.accent-card strong { color: #111; font-weight: 500; }
+
+.map-container { background: #fff; border: 0.5px solid #e0e0e0; border-radius: 12px; padding: 1rem; overflow: hidden; }
+.map-container h3 { font-size: 14px; font-weight: 500; color: #111; margin-bottom: 0.75rem; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 0.75rem; }
+.legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #666; }
+.legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+
+.stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 1rem 0; }
+.stat-card { background: #f5f5f5; border-radius: 8px; padding: 0.9rem 0.75rem; text-align: center; }
+.stat-card .num { font-size: 22px; font-weight: 500; color: #111; }
+.stat-card .lbl { font-size: 11px; color: #666; line-height: 1.4; margin-top: 3px; }
+
+.timeline { position: relative; padding-left: 1.5rem; }
+.timeline::before { content:""; position: absolute; left: 6px; top: 8px; bottom: 8px; width: 1.5px; background: #ddd; }
+.tl-item { position: relative; margin-bottom: 1.2rem; }
+.tl-dot { position: absolute; left: -1.5rem; top: 4px; width: 12px; height: 12px; border-radius: 50%; background: #185FA5; border: 2px solid #fff; }
+.tl-dot.amber { background: #854F0B; }
+.tl-dot.coral { background: #993C1D; }
+.tl-date { font-size: 11px; font-weight: 500; color: #185FA5; margin-bottom: 2px; }
+.tl-date.amber { color: #854F0B; }
+.tl-date.coral { color: #993C1D; }
+.tl-title { font-size: 13px; font-weight: 500; color: #111; }
+.tl-body { font-size: 12px; color: #666; line-height: 1.5; margin-top: 2px; }
+
+/* Lederach level bands */
+.level-band { border-radius: 10px; padding: 0.75rem 1rem; margin-bottom: 0.75rem; }
+.level-band.top { background: #E6F1FB; border: 0.5px solid #B5D4F4; }
+.level-band.mid { background: #EAF3DE; border: 0.5px solid #C0DD97; }
+.level-band.grass { background: #EEEDFE; border: 0.5px solid #CECBF6; }
+.level-band h4 { font-size: 11px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 6px; }
+.level-band.top h4 { color: #0C447C; }
+.level-band.mid h4 { color: #27500A; }
+.level-band.grass h4 { color: #3C3489; }
+
+.rec-card { background: #fff; border: 0.5px solid #e0e0e0; border-radius: 8px; padding: 0.9rem; display: flex; gap: 10px; align-items: flex-start; margin-bottom: 8px; }
+.rec-num { width: 28px; height: 28px; border-radius: 50%; background: #1B3A5C; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 500; flex-shrink: 0; }
+.rec-num.blue { background: #185FA5; }
+.rec-num.green { background: #3B6D11; }
+.rec-num.purple { background: #534AB7; }
+.rec-text h4 { font-size: 13px; font-weight: 500; color: #111; }
+.rec-text p { font-size: 12px; color: #555; line-height: 1.5; margin-top: 2px; }
+.obstacle { font-size: 11px; color: #993C1D; margin-top: 5px; padding: 4px 8px; background: #FAECE7; border-radius: 4px; }
+
+.bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.bar-label { font-size: 12px; color: #666; width: 130px; flex-shrink: 0; text-align: right; }
+.bar-track { flex: 1; background: #eee; border-radius: 3px; height: 14px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 3px; }
+.bar-val { font-size: 12px; font-weight: 500; color: #111; width: 36px; }
+
+/* References */
+.ref-section { background: #fff; border: 0.5px solid #e0e0e0; border-radius: 12px; padding: 1.25rem; margin-top: 1.5rem; }
+.ref-section h3 { font-size: 14px; font-weight: 500; color: #1B3A5C; margin-bottom: 0.75rem; border-bottom: 0.5px solid #e0e0e0; padding-bottom: 0.5rem; }
+.ref-list { list-style: none; padding: 0; }
+.ref-list li { font-size: 11px; color: #555; line-height: 1.6; padding: 4px 0; border-bottom: 0.5px solid #f0f0f0; }
+.ref-list li:last-child { border-bottom: none; }
+.ref-list a { color: #185FA5; text-decoration: none; }
+.ref-list a:hover { text-decoration: underline; }
+
+/* Policy section extras */
+.policy-card { background: #fff; border: 0.5px solid #e0e0e0; border-radius: 10px; padding: 1rem; margin-bottom: 0.75rem; }
+.policy-card h4 { font-size: 13px; font-weight: 500; color: #111; margin-bottom: 4px; }
+.policy-card p { font-size: 12px; color: #555; line-height: 1.55; }
+.policy-tag { display: inline-block; font-size: 10px; font-weight: 500; padding: 2px 7px; border-radius: 4px; margin-bottom: 5px; }
+.tag-policy { background: #E6F1FB; color: #0C447C; }
+.tag-gap { background: #FAECE7; color: #993C1D; }
+
+#mm{width:100%}
+.ctrl-bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+.mm-btn{font-size:11px;font-weight:500;padding:4px 11px;border-radius:16px;border:0.5px solid #ccc;background:#fff;color:#666;cursor:pointer;transition:all .15s}
+.mm-btn.active{background:#1B3A5C;color:#fff;border-color:#1B3A5C}
+.mm-btn:hover:not(.active){background:#f5f5f5;color:#111}
+.mode-btn{font-size:11px;font-weight:500;padding:4px 11px;border-radius:16px;border:0.5px solid #ccc;background:#f5f5f5;color:#666;cursor:pointer;transition:all .15s}
+.mode-btn.active{background:#534AB7;color:#fff;border-color:#534AB7}
+.search-wrap{position:relative;flex:1;min-width:140px;max-width:220px}
+.search-wrap input{width:100%;padding:4px 10px;font-size:11px;border:0.5px solid #ccc;border-radius:16px;background:#fff;color:#111;outline:none}
+.search-wrap input:focus{border-color:#1B3A5C}
+#info-panel{background:#fff;border:0.5px solid #e0e0e0;border-radius:12px;padding:.8rem 1rem;margin-bottom:10px;min-height:60px}
+#info-panel h4{font-size:13px;font-weight:500;color:#111;margin-bottom:3px}
+#info-panel p{font-size:12px;color:#555;line-height:1.55}
+#sub-panel{display:none;margin-top:8px;border-top:0.5px solid #e0e0e0;padding-top:8px}
+#sub-panel .sub-item{font-size:11px;padding:4px 8px;border-radius:6px;margin-bottom:3px;cursor:pointer;border:0.5px solid #e0e0e0;background:#f5f5f5;color:#555;transition:background .15s}
+#sub-panel .sub-item:hover{background:#fff;color:#111}
+#mm-svg-wrap{border:0.5px solid #e0e0e0;border-radius:12px;overflow:hidden;background:#fff}
+#mm-hint{font-size:11px;color:#aaa;text-align:center;margin-top:6px}
+.mm-legend{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:8px;align-items:center}
+.leg-item{display:flex;align-items:center;gap:5px;font-size:11px;color:#666}
+.leg-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.leg-dash{width:16px;height:1px;flex-shrink:0;border-top:1.5px dashed}
+</style>
+
+<div class="tool-switcher">
+  <button class="tool-btn active" onclick="switchTool('storymap', this)">Story map</button>
+  <button class="tool-btn" onclick="switchTool('mindmap', this)">Mind map</button>
+</div>
+
+<!-- ═══════════════════════ STORY MAP ═══════════════════════ -->
+<div id="storymap" class="tool-view active">
+
+<div class="hero">
+  <div class="hero-label">Interactive story map &nbsp;&middot;&nbsp; Policy Brief</div>
+  <h1>Food Security as Peacebuilding:<br>Addressing Structural Violence in Indonesia's Food System</h1>
+  <p>Food insecurity in Indonesia is not a supply deficit. It is structural violence &mdash; rooted in colonial history, land inequality, and governance failures. This story map traces that argument from root causes to policy solutions.</p>
+  <div class="hero-meta">
+    <span><strong>Tsering Skeele</strong><br>Author</span>
+    <span><strong>April 2026</strong><br>Published</span>
+    <span><strong>7 sections</strong><br>Explore below</span>
+  </div>
+</div>
+
+<!-- ─── EXECUTIVE SUMMARY (always visible above the nav) ─── -->
+<div style="background:#fff;border:0.5px solid #e0e0e0;border-left:4px solid #1B3A5C;border-radius:10px;padding:1.25rem 1.5rem;margin-bottom:1.5rem;">
+  <div style="font-size:11px;font-weight:500;letter-spacing:0.08em;color:#1B3A5C;text-transform:uppercase;margin-bottom:0.6rem;">Executive summary</div>
+  <p style="font-size:13.5px;color:#333;line-height:1.7;margin-bottom:0.9rem;">Food insecurity in Indonesia is a <strong>structural problem</strong>, not a supply deficit. It is rooted in colonial agricultural extraction, fragmented land governance, and decades of policy prioritising rice self-sufficiency over nutrition equity. The scale is measurable and the solutions are identifiable.</p>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:1rem 0;">
+    <div style="background:#FAEEDA;border-radius:8px;padding:0.75rem 0.5rem;text-align:center;"><div style="font-size:20px;font-weight:500;color:#854F0B;">21%</div><div style="font-size:10.5px;color:#854F0B;line-height:1.35;margin-top:2px;">of children under 5 are stunted</div></div>
+    <div style="background:#FAECE7;border-radius:8px;padding:0.75rem 0.5rem;text-align:center;"><div style="font-size:20px;font-weight:500;color:#993C1D;">40-50%</div><div style="font-size:10.5px;color:#993C1D;line-height:1.35;margin-top:2px;">of palm oil smallholders excluded from ISPO</div></div>
+    <div style="background:#E6F1FB;border-radius:8px;padding:0.75rem 0.5rem;text-align:center;"><div style="font-size:20px;font-weight:500;color:#0C447C;">6.8M ha</div><div style="font-size:10.5px;color:#0C447C;line-height:1.35;margin-top:2px;">of customary land unrecognised</div></div>
+    <div style="background:#EAF3DE;border-radius:8px;padding:0.75rem 0.5rem;text-align:center;"><div style="font-size:20px;font-weight:500;color:#27500A;">&gt;55%</div><div style="font-size:10.5px;color:#27500A;line-height:1.35;margin-top:2px;">of farms under 0.5 hectares</div></div>
+  </div>
+  <p style="font-size:13px;color:#555;line-height:1.65;">Applying conflict transformation theory (Galtung; Lederach), this brief argues that equitable food systems are peacebuilding infrastructure. The legal mechanisms and community models needed for reform already exist in Indonesian law — what is missing is the political will to use them. Seven recommendations across Lederach's three levels are offered, each with a specific implementation mechanism, a realistic cost estimate, and measurable progress indicators.</p>
+  <div style="margin-top:0.9rem;padding-top:0.75rem;border-top:0.5px solid #eee;display:flex;flex-wrap:wrap;gap:12px;font-size:11.5px;color:#666;">
+    <span><strong style="color:#111;">For policymakers:</strong> Sections 4, 6, 7</span>
+    <span><strong style="color:#111;">For practitioners:</strong> Sections 3, 6, 7</span>
+    <span><strong style="color:#111;">For researchers:</strong> Sections 1, 2, 5</span>
+  </div>
+</div>
+
+<div class="nav">
+  <button class="nav-btn active" onclick="show('roots')">1. Historical roots</button>
+  <button class="nav-btn" onclick="show('crisis')">2. The crisis today</button>
+  <button class="nav-btn" onclick="show('margins')">3. Who is most harmed</button>
+  <button class="nav-btn" onclick="show('policy')">4. Policy landscape</button>
+  <button class="nav-btn" onclick="show('theory')">5. Conflict transformation</button>
+  <button class="nav-btn" onclick="show('recs')">6. Recommendations</button>
+  <button class="nav-btn" onclick="show('impl')">7. Financing &amp; indicators</button>
+</div>
+
+<!-- ─── SECTION 1: HISTORICAL ROOTS ─── -->
+<div id="roots" class="section active">
+  <div class="two-col">
+    <div>
+      <div class="card" style="margin-bottom:1rem;">
+        <h3>Three historical ruptures</h3>
+        <div class="timeline" style="margin-top:0.75rem;">
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-date">1830 &ndash; 1870</div>
+            <div class="tl-title">Dutch Cultivation System (Cultuurstelsel)</div>
+            <div class="tl-body">Farmers forced to dedicate land to export crops &mdash; sugar, coffee, indigo. Subsistence agriculture displaced. Land inequality embedded for generations. (Elson, 1994; Booth, 1998)</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot amber"></div>
+            <div class="tl-date amber">1960s &ndash; 1980s</div>
+            <div class="tl-title">Green Revolution</div>
+            <div class="tl-body">High-yield rice achieved national self-sufficiency by the 1980s, but created monoculture dependence and excluded smallholders, women, and indigenous farmers from its benefits. Today more than 55% of Indonesian farms still operate on less than 0.5 hectares. (Booth, 2012; BPS, 2023)</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot coral"></div>
+            <div class="tl-date coral">1997&ndash;98 &amp; 2020</div>
+            <div class="tl-title">Crises expose fragility</div>
+            <div class="tl-body">The Asian Financial Crisis and COVID-19 both revealed the same structural weakness: economic shocks translate immediately into food insecurity for the most marginalised households. (Elson, 1994; Booth, 1998)</div>
+          </div>
+        </div>
+      </div>
+      <div class="accent-card">
+        <p><strong>Structural violence (Galtung, 1969):</strong> harm produced not by any individual actor, but by institutional arrangements that systematically prevent people from meeting basic human needs. Colonial agriculture is its paradigmatic form.</p>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <h3>Land governance: a fragmented legacy</h3>
+        <p style="margin-bottom:1rem;">Indonesia's land system is split across competing authorities, creating contradictions that directly harm smallholders and indigenous communities.</p>
+        <div class="bar-row"><div class="bar-label">MoEF jurisdiction</div><div class="bar-track"><div class="bar-fill" style="width:70%;background:#185FA5;"></div></div><div class="bar-val">~70%</div></div>
+        <div class="bar-row"><div class="bar-label">Private concessions</div><div class="bar-track"><div class="bar-fill" style="width:30%;background:#D85A30;"></div></div><div class="bar-val">~30%</div></div>
+        <div class="bar-row"><div class="bar-label">Farms &lt; 0.5 ha</div><div class="bar-track"><div class="bar-fill" style="width:55%;background:#854F0B;"></div></div><div class="bar-val">&gt;55%</div></div>
+        <p style="margin-top:0.75rem;font-size:11px;color:#888;">~70% of territory under Ministry of Environment &amp; Forestry; ~30% allocated as private plantation concessions, with extensive overlap onto indigenous land. Over 55% of farms operate on less than 0.5 ha. (Arizona &amp; Cohen, 2024; BPS, 2023)</p>
+      </div>
+      <div class="card" style="margin-top:1rem;">
+        <h3>Key structural tension</h3>
+        <p>National food policy has consistently prioritised <strong>rice self-sufficiency</strong> (production) over <strong>nutrition security</strong> (diversity + access). Meanwhile, the Basic Agrarian Law of 1960 cannot accommodate communal land rights, leaving indigenous and smallholder communities structurally unprotected.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── SECTION 2: THE CRISIS TODAY ─── -->
+<div id="crisis" class="section">
+  <div class="stat-grid">
+    <div class="stat-card"><div class="num">21%</div><div class="lbl">Children under 5 stunted &mdash; persists despite national income growth (Black et al., 2013; UNICEF Indonesia, 2023)</div></div>
+    <div class="stat-card"><div class="num">38&ndash;40M</div><div class="lbl">Agricultural workers, ~28&ndash;30% of national workforce (BPS, 2023)</div></div>
+    <div class="stat-card"><div class="num">&gt;55%</div><div class="lbl">Farms operating on less than 0.5 hectares (BPS, 2023)</div></div>
+    <div class="stat-card"><div class="num">17,000+</div><div class="lbl">Islands &mdash; vast geography driving severe regional inequality</div></div>
+  </div>
+  <div class="two-col" style="margin-top:1rem;">
+    <div>
+      <div class="card">
+        <h3>The four dimensions of food security</h3>
+        <p style="margin-bottom:0.75rem;">National availability has improved &mdash; but access, utilisation, and stability still fail millions.</p>
+        <div class="bar-row"><div class="bar-label">Availability</div><div class="bar-track"><div class="bar-fill" style="width:82%;background:#3B6D11;"></div></div><div class="bar-val" style="color:#3B6D11;">High</div></div>
+        <div class="bar-row"><div class="bar-label">Access</div><div class="bar-track"><div class="bar-fill" style="width:52%;background:#BA7517;"></div></div><div class="bar-val" style="color:#BA7517;">Mixed</div></div>
+        <div class="bar-row"><div class="bar-label">Utilisation</div><div class="bar-track"><div class="bar-fill" style="width:44%;background:#D85A30;"></div></div><div class="bar-val" style="color:#D85A30;">Low</div></div>
+        <div class="bar-row"><div class="bar-label">Stability</div><div class="bar-track"><div class="bar-fill" style="width:40%;background:#E24B4A;"></div></div><div class="bar-val" style="color:#E24B4A;">Fragile</div></div>
+        <p style="font-size:11px;margin-top:0.6rem;">(FAO, 1996)</p>
+      </div>
+      <div class="accent-card amber" style="margin-top:1rem;">
+        <p><strong>Stunting as structural indicator:</strong> approximately 21% of Indonesian children under five are stunted, a rate that persists despite national income growth, proving that caloric availability alone does not ensure nutritional security. Each stunted child faces reduced education and lifetime earnings &mdash; intergenerational inequality made visible. (Black et al., 2013; UNICEF Indonesia, 2023)</p>
+      </div>
+    </div>
+    <div>
+      <div class="map-container">
+        <h3>Regional food insecurity &mdash; Indonesia</h3>
+        <div id="idn-map" style="width:100%;height:220px;position:relative;"></div>
+        <div class="legend">
+          <div class="legend-item"><div class="legend-dot" style="background:#85B7EB;"></div> Lower insecurity (Java, Sumatra)</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#185FA5;"></div> Moderate</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#0C447C;"></div> Higher insecurity (Papua, NTT)</div>
+        </div>
+        <p style="font-size:11px;margin-top:6px;color:#888;">Eastern provinces experience significantly higher food insecurity. (Juliannisa et al., 2025; FAO, 2022)</p>
+      </div>
+      <div class="card" style="margin-top:1rem;">
+        <h3>Eastern vs. western Indonesia</h3>
+        <p>Papua and East Nusa Tenggara face compounding disadvantages: poor transport raises food prices, agricultural productivity is lower, climate variability is higher, and state institutional capacity is weakest precisely where food insecurity is most severe. (Juliannisa et al., 2025; FAO, 2022)</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── SECTION 3: WHO IS MOST HARMED ─── -->
+<div id="margins" class="section">
+  <div class="two-col">
+    <div>
+      <div class="card">
+        <h3>Women and gender inequality</h3>
+        <ul style="margin-top:0.5rem;">
+          <li>Women are central to food production, preparation, and nutrition management &mdash; yet face systematic barriers to land ownership, credit, and extension services. (Samputra &amp; Antriyandarti, 2024; FAO, 2023)</li>
+          <li style="margin-top:6px;">Pregnant women in food-insecure households face elevated risk of low birth weight and stunting, creating intergenerational transmission of deprivation. (Azrimaidaliza et al., 2025; Black et al., 2013)</li>
+          <li style="margin-top:6px;">Under Islamic inheritance law (faraid), women receive half the land share of male heirs. Combined with customary norms, widows and female-headed households frequently hold insufficient land after displacement or disaster.</li>
+        </ul>
+      </div>
+      <div class="accent-card green" style="margin-top:1rem;">
+        <p><strong>Evidence base:</strong> improving women's access to land, credit, and agricultural extension services is consistently shown to generate strong positive returns for household food security and community well-being. (Samputra &amp; Antriyandarti, 2024; FAO, 2023)</p>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <h3>Indigenous communities (Suku Anak Dalam)</h3>
+        <p>Groups like the Suku Anak Dalam depend on forest resources &mdash; hunting, gathering, small-scale agriculture &mdash; as their primary food system. (Ginting et al., 2025; Margono et al., 2014)</p>
+        <div class="accent-card coral" style="margin-top:0.75rem;margin-bottom:0;">
+          <p><strong>Three converging pressures:</strong></p>
+          <ul style="margin-top:0.4rem;padding-left:1rem;">
+            <li style="font-size:12px;color:#555;margin-bottom:3px;">Rapid deforestation and plantation expansion reducing forest access</li>
+            <li style="font-size:12px;color:#555;margin-bottom:3px;">No formal legal recognition of territorial rights &mdash; AMAN has documented 604 customary land maps covering 6.8 million hectares that remain unrecognised by the state (Arizona &amp; Cohen, 2024)</li>
+            <li style="font-size:12px;color:#555;">Exclusion from formal development programs and social protection</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="margin-top:1rem;">
+        <h3>Smallholders and urban poor</h3>
+        <p>Smallholders face unstable incomes and market volatility. Urban poor face high food prices and limited fresh food access. Both groups are largely invisible in rice self-sufficiency policy frameworks. Indonesia's agricultural sector employs an estimated 38&ndash;40 million workers, representing 28&ndash;30% of the national workforce, the majority of whom are smallholders. (BPS, 2023; World Bank, 2023)</p>
+      </div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:1rem;">
+    <h3>Intersecting vulnerabilities</h3>
+    <p>These groups are not separate. An indigenous woman farmer in eastern Papua faces all of these burdens simultaneously &mdash; land insecurity, reduced inheritance rights, deforestation of her food system, and exclusion from social protection. Conflict transformation demands that policy address intersections, not isolated categories.</p>
+  </div>
+</div>
+
+<!-- ─── SECTION 4: POLICY LANDSCAPE (NEW) ─── -->
+<div id="policy" class="section">
+  <div class="two-col">
+    <div>
+      <div class="policy-card">
+        <span class="policy-tag tag-policy">Policy</span>
+        <h4>Rice self-sufficiency and Bulog</h4>
+        <p>Indonesia achieved rice self-sufficiency in the 1980s. The state logistics agency (Bulog) administers rice subsidies, import controls, and price stabilisation. These programs have reduced extreme hunger but prioritise caloric sufficiency over dietary diversity and benefit larger operators more than smallholders. (Timmer, 1996; World Bank, 2022)</p>
+      </div>
+      <div class="policy-card">
+        <span class="policy-tag tag-policy">Policy</span>
+        <h4>Social protection (Rastra / BPNT)</h4>
+        <p>Subsidised rice distribution (Rastra) and non-cash food assistance (BPNT) have played an important role in reducing extreme hunger. However, coverage is uneven &mdash; remote and marginalised communities are often underserved. Decentralisation has produced significant variation in implementation quality across provinces. (Aspinall &amp; Fealy, 2003; World Bank, 2022)</p>
+      </div>
+      <div class="policy-card">
+        <span class="policy-tag tag-policy">Policy</span>
+        <h4>National Strategy on Stunting Reduction (STRANAS)</h4>
+        <p>Indonesia's STRANAS program, coordinated under the Office of the Vice President, is the most significant nutrition-specific policy effort nationally. It integrates interventions across health, water and sanitation, and social protection, and has driven real progress in reducing the 21% stunting rate. However, implementation gaps persist in eastern provinces with weaker institutional capacity, underscoring that national policy architecture alone cannot close regional food security gaps. (Office of the Vice President, 2018; Beal et al., 2018)</p>
+      </div>
+      <div class="policy-card">
+        <span class="policy-tag tag-gap">Policy gap</span>
+        <h4>ISPO and the customary land paradox</h4>
+        <p>The Indonesian Sustainable Palm Oil (ISPO) certification system (Presidential Regulation No. 44/2020) governs an industry spanning over 16 million hectares and supporting approximately 16 million workers. But ISPO requires formal land title as a prerequisite for certification. An estimated 40&ndash;50% of palm oil smallholders currently fall outside ISPO because their customary land rights have never been converted to formal certificates &mdash; a process that is prohibitively expensive or legally unavailable for communal land. (Arizona &amp; Cohen, 2024)</p>
+      </div>
+    </div>
+    <div>
+      <div class="policy-card">
+        <span class="policy-tag tag-gap">Policy gap</span>
+        <h4>EU Deforestation Regulation (EUDR, 2023)</h4>
+        <p>The EUDR requires buyers to obtain geolocation and title documentation for all supply chain producers. Smallholders without formal certificates are effectively non-compliant by definition, creating market exclusion with no corresponding ecological benefit. This compounds rather than resolves the ISPO paradox. (European Union, 2023)</p>
+      </div>
+      <div class="policy-card">
+        <span class="policy-tag tag-policy">Existing mechanism</span>
+        <h4>BPN Ministerial Regulation No. 9/2015</h4>
+        <p>This regulation already provides a formal mechanism for communal tenure recognition in Indonesian law. It remains severely underutilised. Amending ISPO to accept adat community decrees issued under this regulation as equivalent tenure documentation is the most structurally sound reform pathway available. (Government of Indonesia, 2015)</p>
+      </div>
+      <div class="policy-card">
+        <span class="policy-tag tag-policy">Program model</span>
+        <h4>BRG/BRGM Peat Care Village program</h4>
+        <p>Established under Presidential Regulation No. 1/2016, the Peatland Restoration Agency's Desa Peduli Gambut program integrates restoration goals into village development plans, positions communities as agents rather than recipients, and links ecological outcomes to sustainable livelihoods. It is the most replicable model for community-centred governance in Indonesia. (Government of Indonesia, 2016; Astuti et al., 2021)</p>
+      </div>
+      <div class="accent-card amber">
+        <p><strong>Key gap across all policies:</strong> no current framework formally recognises the 604 customary land maps covering 6.8 million hectares documented by AMAN. Until this changes, millions of Indonesians remain structurally excluded from the systems designed to protect them.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── SECTION 5: CONFLICT TRANSFORMATION ─── -->
+<div id="theory" class="section">
+  <div class="two-col">
+    <div>
+      <div class="card">
+        <h3>Galtung: structural violence</h3>
+        <p style="margin-bottom:0.75rem;">Violence does not require a perpetrator with intent. It requires only institutions that consistently prevent people from meeting basic human needs. (Galtung, 1969)</p>
+        <p>Indonesia's food system is structurally violent when it reliably fails smallholders, women, indigenous communities, and the rural poor &mdash; not because any actor wills their harm, but because the institutional arrangements produce it predictably. With 21% of children stunted and 40&ndash;50% of palm oil smallholders excluded from ISPO, the scale of structural exclusion is measurable. This framing is consistent with broader peacebuilding literature linking famine and food deprivation to political processes rather than natural scarcity. (de Waal, 2018; Messer &amp; Cohen, 2015)</p>
+      </div>
+      <div class="accent-card" style="margin-top:1rem;">
+        <p>Food insecurity operates across <strong>all levels simultaneously:</strong> within households (gender hierarchies and faraid inheritance norms), between communities (rural/urban, indigenous/settler), nationally (governance fragmentation and rice monoculture policy), and globally (climate risk and EUDR market exclusion).</p>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <h3>Lederach: three levels of peacebuilding</h3>
+        <p style="margin-bottom:0.75rem;">Durable change requires coordinated action across all three levels simultaneously. Interventions at only one level get captured by existing power arrangements. (Lederach, 1997)</p>
+        <div style="margin-top:0.75rem;">
+          <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;padding:10px;background:#E6F1FB;border-radius:8px;">
+            <div style="width:28px;height:28px;border-radius:50%;background:#1B3A5C;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;flex-shrink:0;">1</div>
+            <div><div style="font-size:13px;font-weight:500;color:#0C447C;">Top-level leadership</div><div style="font-size:12px;color:#185FA5;margin-top:2px;">National policy reform (ISPO, land tenure, agricultural subsidies), FAO/UNDP/World Bank engagement</div></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;padding:10px;background:#EAF3DE;border-radius:8px;">
+            <div style="width:28px;height:28px;border-radius:50%;background:#3B6D11;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;flex-shrink:0;">2</div>
+            <div><div style="font-size:13px;font-weight:500;color:#27500A;">Middle-range actors</div><div style="font-size:12px;color:#3B6D11;margin-top:2px;">NGOs, civil society networks, women's organisations, AMAN land-mapping programs, gender mainstreaming in institutional programming</div></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:10px;padding:10px;background:#EEEDFE;border-radius:8px;">
+            <div style="width:28px;height:28px;border-radius:50%;background:#534AB7;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;flex-shrink:0;">3</div>
+            <div><div style="font-size:13px;font-weight:500;color:#3C3489;">Grassroots community</div><div style="font-size:12px;color:#534AB7;margin-top:2px;">Smallholder farmers, women's groups, indigenous communities &mdash; community-led food systems, Desa Peduli Gambut model, participatory governance</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lederach flow diagram: shows resource/information flow between levels -->
+  <div class="card" style="margin-top:1rem;">
+    <h3>How the three levels work together</h3>
+    <p style="font-size:12.5px;color:#555;line-height:1.6;margin-bottom:1rem;">Durable change requires resources and authority flowing downward while evidence and legitimacy flow upward. Interventions that operate at only one level get captured by existing power arrangements.</p>
+    <svg viewBox="0 0 720 280" width="100%" style="display:block;font-family:sans-serif;">
+      <!-- Level bands (background) -->
+      <rect x="10" y="10" width="700" height="70" rx="8" fill="#E6F1FB" stroke="#B5D4F4" stroke-width="0.5"/>
+      <rect x="10" y="105" width="700" height="70" rx="8" fill="#EAF3DE" stroke="#C0DD97" stroke-width="0.5"/>
+      <rect x="10" y="200" width="700" height="70" rx="8" fill="#EEEDFE" stroke="#CECBF6" stroke-width="0.5"/>
+
+      <!-- Level 1 -->
+      <text x="25" y="32" font-size="10" font-weight="500" fill="#0C447C" letter-spacing="0.6">LEVEL 1 · TOP</text>
+      <text x="25" y="50" font-size="12" font-weight="500" fill="#0C447C">National policy reform</text>
+      <text x="25" y="66" font-size="11" fill="#185FA5">FAO · UNDP · World Bank · Indonesian ministries · Bulog</text>
+      <!-- actor pills level 1 -->
+      <g>
+        <rect x="370" y="20" width="110" height="22" rx="11" fill="#fff" stroke="#185FA5" stroke-width="0.8"/>
+        <text x="425" y="35" font-size="10" fill="#0C447C" text-anchor="middle" font-weight="500">Amend ISPO</text>
+        <rect x="490" y="20" width="130" height="22" rx="11" fill="#fff" stroke="#185FA5" stroke-width="0.8"/>
+        <text x="555" y="35" font-size="10" fill="#0C447C" text-anchor="middle" font-weight="500">Reform subsidies</text>
+        <rect x="370" y="48" width="250" height="22" rx="11" fill="#fff" stroke="#185FA5" stroke-width="0.8"/>
+        <text x="495" y="63" font-size="10" fill="#0C447C" text-anchor="middle" font-weight="500">Shift from rice self-sufficiency to nutrition security</text>
+      </g>
+
+      <!-- Level 2 -->
+      <text x="25" y="127" font-size="10" font-weight="500" fill="#27500A" letter-spacing="0.6">LEVEL 2 · MIDDLE</text>
+      <text x="25" y="145" font-size="12" font-weight="500" fill="#27500A">Institutional &amp; civil society</text>
+      <text x="25" y="161" font-size="11" fill="#3B6D11">NGOs · AMAN · women's organisations · local governments</text>
+      <g>
+        <rect x="370" y="115" width="125" height="22" rx="11" fill="#fff" stroke="#3B6D11" stroke-width="0.8"/>
+        <text x="432.5" y="130" font-size="10" fill="#27500A" text-anchor="middle" font-weight="500">Gender mainstreaming</text>
+        <rect x="505" y="115" width="115" height="22" rx="11" fill="#fff" stroke="#3B6D11" stroke-width="0.8"/>
+        <text x="562.5" y="130" font-size="10" fill="#27500A" text-anchor="middle" font-weight="500">FPIC + land mapping</text>
+        <rect x="370" y="143" width="250" height="22" rx="11" fill="#fff" stroke="#3B6D11" stroke-width="0.8"/>
+        <text x="495" y="158" font-size="10" fill="#27500A" text-anchor="middle" font-weight="500">Desa Peduli Gambut — community-led programming</text>
+      </g>
+
+      <!-- Level 3 -->
+      <text x="25" y="222" font-size="10" font-weight="500" fill="#3C3489" letter-spacing="0.6">LEVEL 3 · GRASSROOTS</text>
+      <text x="25" y="240" font-size="12" font-weight="500" fill="#3C3489">Community &amp; lived experience</text>
+      <text x="25" y="256" font-size="11" fill="#534AB7">Smallholder farmers · women's groups · indigenous communities</text>
+      <g>
+        <rect x="370" y="210" width="150" height="22" rx="11" fill="#fff" stroke="#534AB7" stroke-width="0.8"/>
+        <text x="445" y="225" font-size="10" fill="#3C3489" text-anchor="middle" font-weight="500">Agroecological farming</text>
+        <rect x="530" y="210" width="90" height="22" rx="11" fill="#fff" stroke="#534AB7" stroke-width="0.8"/>
+        <text x="575" y="225" font-size="10" fill="#3C3489" text-anchor="middle" font-weight="500">Seed diversity</text>
+        <rect x="370" y="238" width="250" height="22" rx="11" fill="#fff" stroke="#534AB7" stroke-width="0.8"/>
+        <text x="495" y="253" font-size="10" fill="#3C3489" text-anchor="middle" font-weight="500">Multi-stakeholder governance platforms</text>
+      </g>
+
+      <!-- Downward flow arrow (resources + authority) -->
+      <defs>
+        <marker id="arr-down" viewBox="0 0 10 10" refX="5" refY="9" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M1 1L5 9L9 1" fill="none" stroke="#185FA5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </marker>
+        <marker id="arr-up" viewBox="0 0 10 10" refX="5" refY="1" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M1 9L5 1L9 9" fill="none" stroke="#3B6D11" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </marker>
+      </defs>
+      <!-- Down arrow -->
+      <line x1="320" y1="45" x2="320" y2="230" stroke="#185FA5" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#arr-down)"/>
+      <rect x="235" y="130" width="170" height="16" rx="3" fill="#fff" stroke="#185FA5" stroke-width="0.5"/>
+      <text x="320" y="141" font-size="10" fill="#185FA5" text-anchor="middle" font-weight="500">Resources · authority · funding</text>
+      <!-- Up arrow -->
+      <line x1="350" y1="230" x2="350" y2="45" stroke="#3B6D11" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#arr-up)"/>
+      <rect x="260" y="170" width="180" height="16" rx="3" fill="#fff" stroke="#3B6D11" stroke-width="0.5"/>
+      <text x="350" y="181" font-size="10" fill="#27500A" text-anchor="middle" font-weight="500">Evidence · legitimacy · lived experience</text>
+    </svg>
+    <p style="font-size:11px;color:#888;margin-top:0.6rem;">Adapted from Lederach's (1997) three-level peacebuilding framework. Recommendations 1-7 map onto this structure (see section 6).</p>
+  </div>
+
+  <div class="card" style="margin-top:1rem;">
+    <h3>The central argument</h3>
+    <p style="font-size:14px;line-height:1.7;">Equitable food systems function as <strong>peacebuilding infrastructure.</strong> When food systems are structured equitably, they reduce material grievances, strengthen social cohesion, and build trust between communities and institutions. Food insecurity is therefore not peripheral to conflict prevention &mdash; it is central to it. The legal mechanisms, community models, and institutional frameworks needed for reform already exist in Indonesian law and practice. What is required is the political will to use them.</p>
+  </div>
+</div>
+
+<!-- ─── SECTION 6: RECOMMENDATIONS ─── -->
+<div id="recs" class="section">
+  <p style="font-size:13px;color:#555;margin-bottom:1rem;">Seven recommendations organised across Lederach's three levels of change. Each identifies a specific implementation mechanism and the primary political obstacle it faces.</p>
+
+  <div class="level-band top">
+    <h4>Level 1 &mdash; Top-level: national policy reform</h4>
+
+    <div class="rec-card">
+      <div class="rec-num">1</div>
+      <div class="rec-text">
+        <h4>Reform land tenure through existing legal architecture</h4>
+        <p>Accelerate Reforma Agraria for smallholder and indigenous claims. Amend Presidential Regulation No. 44/2020 (ISPO) to accept adat community decrees issued under BPN Ministerial Regulation No. 9/2015 as equivalent tenure documentation for certification. AMAN's database of 604 customary land maps covering 6.8 million hectares is the evidentiary foundation.</p>
+        <div class="obstacle">Obstacle: resistance from plantation concession holders and Ministry of Environment &amp; Forestry reluctance to share jurisdictional authority. A tiered ISPO compliance model offers a pragmatic interim pathway.</div>
+      </div>
+    </div>
+
+    <div class="rec-card">
+      <div class="rec-num">2</div>
+      <div class="rec-text">
+        <h4>Redesign agricultural policy toward nutrition security</h4>
+        <p>Shift from exclusive rice self-sufficiency toward broader nutrition security. Reform the fertiliser subsidy program (Law No. 19/2013) to equitably reach the more than 55% of farms operating under 0.5 hectares. Invest in market infrastructure, transport, and cold storage in eastern provinces including Papua and East Nusa Tenggara.</p>
+        <div class="obstacle">Obstacle: political sensitivity of rice self-sufficiency as a national sovereignty narrative and institutional interests of Bulog. Reform should be framed as expanding food security, not dismantling existing structures.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="level-band mid">
+    <h4>Level 2 &mdash; Middle range: institutional and civil society programming</h4>
+
+    <div class="rec-card">
+      <div class="rec-num blue">3</div>
+      <div class="rec-text">
+        <h4>Mainstream gender across all food security programs</h4>
+        <p>Mandate gender analysis as a prerequisite for all food security program design and funding. Establish dedicated financing for women's access to land, credit, and extension services, explicitly addressing the barriers created by faraid inheritance norms. Require all agencies to publish sex-disaggregated food insecurity data annually.</p>
+        <div class="obstacle">Obstacle: institutional resistance within agricultural ministries that have treated smallholder support as gender-neutral, and political sensitivity around religious inheritance law.</div>
+      </div>
+    </div>
+
+    <div class="rec-card">
+      <div class="rec-num blue">4</div>
+      <div class="rec-text">
+        <h4>Protect indigenous food systems through formal territorial recognition</h4>
+        <p>Accelerate formal legal recognition of indigenous territorial rights using Constitutional Court Decision No. 35 (2012) and BPN Regulation No. 9/2015. Require free, prior, and informed consent (FPIC) as a binding condition for all development and concession activities on customary land, in line with Indonesia's commitments under the UN Declaration on the Rights of Indigenous Peoples (UNDRIP).</p>
+        <div class="obstacle">Obstacle: the Bill on Adat Communities' Rights has stalled since 2014. International development partners can provide technical and financial support to accelerate ethnographic documentation.</div>
+      </div>
+    </div>
+
+    <div class="rec-card">
+      <div class="rec-num blue">5</div>
+      <div class="rec-text">
+        <h4>Strengthen community-based food systems through social capital investment</h4>
+        <p>Support local food networks and cooperative farming arrangements. The Desa Peduli Gambut program (Presidential Regulation No. 1/2016) provides a replicable governance model: community-led, livelihoods-integrated, ecologically grounded. It should be formally evaluated and adapted for food system applications beyond peatland contexts.</p>
+        <div class="obstacle">Obstacle: high cost of community capacity-building and need for multi-year funding commitments incompatible with short donor project cycles.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="level-band grass">
+    <h4>Level 3 &mdash; Grassroots and local governance</h4>
+
+    <div class="rec-card">
+      <div class="rec-num purple">6</div>
+      <div class="rec-text">
+        <h4>Promote climate-resilient and diversified agriculture at the farm level</h4>
+        <p>Scale agroecological farming and diversified cropping through community-based Soil and Water Conservation programs under the Directorate General of Watershed Management. Integrate food security and climate adaptation planning at provincial level. Support smallholders to transition away from monoculture through subsidised access to diverse seed varieties. (IPCC, 2022)</p>
+        <div class="obstacle">Obstacle: current fertiliser subsidy structures incentivise synthetic nitrogen inputs, creating a financial disincentive to adopt alternative practices. Redirecting a portion of subsidy expenditure toward agroecological transition would address this.</div>
+      </div>
+    </div>
+
+    <div class="rec-card">
+      <div class="rec-num purple">7</div>
+      <div class="rec-text">
+        <h4>Institutionalise participatory governance at every level of food policy</h4>
+        <p>Establish formal multi-stakeholder platforms integrating smallholder, women's, and indigenous voices into food policy design, implementation, and evaluation at national, provincial, and district levels. Build local government institutional capacity through sustained investment in training, data systems, and inter-agency coordination. Commission regular, publicly accessible program evaluations using participatory methodologies.</p>
+        <div class="obstacle">Obstacle: provinces with the greatest food insecurity needs often have the least institutional capacity. Targeted national investment in these provinces &mdash; not uniform programming &mdash; is necessary.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── SECTION 7: FINANCING & INDICATORS ─── -->
+<div id="impl" class="section">
+  <p style="font-size:13px;color:#555;margin-bottom:1.25rem;">Turning recommendations into implementation requires answers to two questions: where will the money come from, and how will we know it is working? This section addresses both.</p>
+
+  <!-- Financing subsection -->
+  <h3 style="font-size:15px;font-weight:500;color:#1B3A5C;margin-bottom:0.75rem;padding-bottom:0.4rem;border-bottom:0.5px solid #e0e0e0;">Cost and financing considerations</h3>
+
+  <div class="two-col" style="margin-bottom:1.5rem;">
+    <div>
+      <div class="card">
+        <h3>Estimated cost ranges</h3>
+        <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:0.75rem;">Indicative cost bands over a 10-year implementation horizon. Figures are order-of-magnitude estimates intended to inform prioritisation, not final budgeting.</p>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;align-items:center;gap:8px;padding:7px 10px;background:#FAECE7;border-radius:6px;"><div style="flex:1;font-size:12px;color:#712B13;">Land tenure reform &amp; mapping (Rec 1, 4)</div><div style="font-size:11px;font-weight:500;color:#993C1D;">$200-400M</div></div>
+          <div style="display:flex;align-items:center;gap:8px;padding:7px 10px;background:#FAEEDA;border-radius:6px;"><div style="flex:1;font-size:12px;color:#633806;">Subsidy reform transition (Rec 2)</div><div style="font-size:11px;font-weight:500;color:#854F0B;">$1-2B</div></div>
+          <div style="display:flex;align-items:center;gap:8px;padding:7px 10px;background:#EAF3DE;border-radius:6px;"><div style="flex:1;font-size:12px;color:#27500A;">Gender mainstreaming programs (Rec 3)</div><div style="font-size:11px;font-weight:500;color:#3B6D11;">$150-300M</div></div>
+          <div style="display:flex;align-items:center;gap:8px;padding:7px 10px;background:#EEEDFE;border-radius:6px;"><div style="flex:1;font-size:12px;color:#3C3489;">Community food systems (Rec 5)</div><div style="font-size:11px;font-weight:500;color:#534AB7;">$300-500M</div></div>
+          <div style="display:flex;align-items:center;gap:8px;padding:7px 10px;background:#E6F1FB;border-radius:6px;"><div style="flex:1;font-size:12px;color:#0C447C;">Climate-resilient agriculture (Rec 6)</div><div style="font-size:11px;font-weight:500;color:#185FA5;">$500M-1B</div></div>
+          <div style="display:flex;align-items:center;gap:8px;padding:7px 10px;background:#f5f5f5;border-radius:6px;"><div style="flex:1;font-size:12px;color:#444;">Participatory governance (Rec 7)</div><div style="font-size:11px;font-weight:500;color:#555;">$100-200M</div></div>
+        </div>
+        <p style="font-size:10.5px;color:#888;margin-top:0.6rem;line-height:1.5;">Ranges informed by comparable programs: BRG/BRGM 2016-2024 budget (~$300M for 2.6M ha); Brazil's Bolsa Verde (~$200M annually); World Bank Indonesia agriculture portfolio (~$1.5B active).</p>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <h3>Potential financing mechanisms</h3>
+        <div style="margin-bottom:10px;padding:10px;background:#E6F1FB;border-radius:6px;">
+          <div style="font-size:12px;font-weight:500;color:#0C447C;margin-bottom:3px;">Domestic budget reallocation</div>
+          <div style="font-size:11.5px;color:#185FA5;line-height:1.5;">Redirect 10-20% of annual fertiliser subsidy expenditure (~$1.5-3B/year) toward smallholder and agroecological transition support. Politically difficult but highest-leverage.</div>
+        </div>
+        <div style="margin-bottom:10px;padding:10px;background:#EAF3DE;border-radius:6px;">
+          <div style="font-size:12px;font-weight:500;color:#27500A;margin-bottom:3px;">Green Climate Fund</div>
+          <div style="font-size:11.5px;color:#3B6D11;line-height:1.5;">Indonesia's adaptation portfolio includes food security and climate-resilient agriculture. Well-matched to Recommendations 6 and 7.</div>
+        </div>
+        <div style="margin-bottom:10px;padding:10px;background:#EEEDFE;border-radius:6px;">
+          <div style="font-size:12px;font-weight:500;color:#3C3489;margin-bottom:3px;">Bilateral donor programs</div>
+          <div style="font-size:11.5px;color:#534AB7;line-height:1.5;">Norway (peatland/deforestation finance), Germany (GIZ agricultural programming), and Australia (DFAT regional food security) have existing Indonesia commitments.</div>
+        </div>
+        <div style="margin-bottom:10px;padding:10px;background:#FAEEDA;border-radius:6px;">
+          <div style="font-size:12px;font-weight:500;color:#633806;margin-bottom:3px;">Blended finance</div>
+          <div style="font-size:11.5px;color:#854F0B;line-height:1.5;">Palm oil certification compliance (ISPO + EUDR) creates commercial pressure for supply chain investment. Pair with concessional public finance for smallholder inclusion.</div>
+        </div>
+        <div style="padding:10px;background:#FAECE7;border-radius:6px;">
+          <div style="font-size:12px;font-weight:500;color:#712B13;margin-bottom:3px;">Multilateral development banks</div>
+          <div style="font-size:11.5px;color:#993C1D;line-height:1.5;">World Bank, ADB, and IFAD all have active Indonesia agricultural portfolios. Recommendations 1, 2, and 6 align with existing lending priorities.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Indicators subsection -->
+  <h3 style="font-size:15px;font-weight:500;color:#1B3A5C;margin-bottom:0.75rem;padding-bottom:0.4rem;border-bottom:0.5px solid #e0e0e0;">Indicators for measuring progress</h3>
+
+  <p style="font-size:12px;color:#666;line-height:1.6;margin-bottom:1rem;">For each recommendation, we suggest 2-3 measurable indicators. Progress should be tracked at annual intervals using publicly accessible data from BPS, the Ministry of Agriculture, AMAN, and independent monitors.</p>
+
+  <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:1.5rem;">
+    <!-- Rec 1 -->
+    <div style="background:#fff;border:0.5px solid #e0e0e0;border-left:3px solid #1B3A5C;border-radius:0 8px 8px 0;padding:10px 14px;">
+      <div style="font-size:12px;font-weight:500;color:#111;margin-bottom:6px;">Rec 1 &mdash; Land tenure reform</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">
+        <span style="font-size:11px;background:#EEF4FA;color:#0C447C;padding:3px 9px;border-radius:4px;"># of customary land maps formally recognised (baseline: &lt;50 of 604)</span>
+        <span style="font-size:11px;background:#EEF4FA;color:#0C447C;padding:3px 9px;border-radius:4px;">Hectares covered by ISPO-recognised adat decrees</span>
+        <span style="font-size:11px;background:#EEF4FA;color:#0C447C;padding:3px 9px;border-radius:4px;">Reduction in documented land conflicts (Komnas HAM)</span>
+      </div>
+    </div>
+    <!-- Rec 2 -->
+    <div style="background:#fff;border:0.5px solid #e0e0e0;border-left:3px solid #1B3A5C;border-radius:0 8px 8px 0;padding:10px 14px;">
+      <div style="font-size:12px;font-weight:500;color:#111;margin-bottom:6px;">Rec 2 &mdash; Agricultural policy redesign</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">
+        <span style="font-size:11px;background:#EEF4FA;color:#0C447C;padding:3px 9px;border-radius:4px;">Dietary diversity score (household-level, eastern Indonesia)</span>
+        <span style="font-size:11px;background:#EEF4FA;color:#0C447C;padding:3px 9px;border-radius:4px;">% subsidy reaching farms &lt;0.5 ha (baseline: low)</span>
+        <span style="font-size:11px;background:#EEF4FA;color:#0C447C;padding:3px 9px;border-radius:4px;">Cold-storage capacity built in Papua &amp; NTT</span>
+      </div>
+    </div>
+    <!-- Rec 3 -->
+    <div style="background:#fff;border:0.5px solid #e0e0e0;border-left:3px solid #185FA5;border-radius:0 8px 8px 0;padding:10px 14px;">
+      <div style="font-size:12px;font-weight:500;color:#111;margin-bottom:6px;">Rec 3 &mdash; Gender mainstreaming</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">
+        <span style="font-size:11px;background:#EAF3DE;color:#27500A;padding:3px 9px;border-radius:4px;">% of food security programs with gender analysis</span>
+        <span style="font-size:11px;background:#EAF3DE;color:#27500A;padding:3px 9px;border-radius:4px;">Women's land ownership share (national + provincial)</span>
+        <span style="font-size:11px;background:#EAF3DE;color:#27500A;padding:3px 9px;border-radius:4px;">Publication of sex-disaggregated food insecurity data (annual)</span>
+      </div>
+    </div>
+    <!-- Rec 4 -->
+    <div style="background:#fff;border:0.5px solid #e0e0e0;border-left:3px solid #185FA5;border-radius:0 8px 8px 0;padding:10px 14px;">
+      <div style="font-size:12px;font-weight:500;color:#111;margin-bottom:6px;">Rec 4 &mdash; Indigenous food systems</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">
+        <span style="font-size:11px;background:#EAF3DE;color:#27500A;padding:3px 9px;border-radius:4px;">FPIC compliance rate for concessions on/near customary land</span>
+        <span style="font-size:11px;background:#EAF3DE;color:#27500A;padding:3px 9px;border-radius:4px;">Passage of Bill on Adat Communities' Rights</span>
+        <span style="font-size:11px;background:#EAF3DE;color:#27500A;padding:3px 9px;border-radius:4px;">Food insecurity prevalence among indigenous communities</span>
+      </div>
+    </div>
+    <!-- Rec 5 -->
+    <div style="background:#fff;border:0.5px solid #e0e0e0;border-left:3px solid #185FA5;border-radius:0 8px 8px 0;padding:10px 14px;">
+      <div style="font-size:12px;font-weight:500;color:#111;margin-bottom:6px;">Rec 5 &mdash; Community-based food systems</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">
+        <span style="font-size:11px;background:#EAF3DE;color:#27500A;padding:3px 9px;border-radius:4px;"># of villages adopting Desa Peduli Gambut-style programming</span>
+        <span style="font-size:11px;background:#EAF3DE;color:#27500A;padding:3px 9px;border-radius:4px;">Cooperative membership and participation rates</span>
+        <span style="font-size:11px;background:#EAF3DE;color:#27500A;padding:3px 9px;border-radius:4px;">Household food security score (rural, by province)</span>
+      </div>
+    </div>
+    <!-- Rec 6 -->
+    <div style="background:#fff;border:0.5px solid #e0e0e0;border-left:3px solid #534AB7;border-radius:0 8px 8px 0;padding:10px 14px;">
+      <div style="font-size:12px;font-weight:500;color:#111;margin-bottom:6px;">Rec 6 &mdash; Climate-resilient agriculture</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">
+        <span style="font-size:11px;background:#EEEDFE;color:#3C3489;padding:3px 9px;border-radius:4px;">Hectares under diversified cropping systems</span>
+        <span style="font-size:11px;background:#EEEDFE;color:#3C3489;padding:3px 9px;border-radius:4px;">Smallholder adoption rate of climate-resilient varieties</span>
+        <span style="font-size:11px;background:#EEEDFE;color:#3C3489;padding:3px 9px;border-radius:4px;">Reduction in crop loss during extreme weather events</span>
+      </div>
+    </div>
+    <!-- Rec 7 -->
+    <div style="background:#fff;border:0.5px solid #e0e0e0;border-left:3px solid #534AB7;border-radius:0 8px 8px 0;padding:10px 14px;">
+      <div style="font-size:12px;font-weight:500;color:#111;margin-bottom:6px;">Rec 7 &mdash; Participatory governance</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">
+        <span style="font-size:11px;background:#EEEDFE;color:#3C3489;padding:3px 9px;border-radius:4px;"># of active multi-stakeholder platforms (provincial)</span>
+        <span style="font-size:11px;background:#EEEDFE;color:#3C3489;padding:3px 9px;border-radius:4px;">% of food policy decisions with documented community input</span>
+        <span style="font-size:11px;background:#EEEDFE;color:#3C3489;padding:3px 9px;border-radius:4px;">Publication of participatory program evaluations (annual)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Headline / system-level indicators -->
+  <div class="accent-card" style="margin-bottom:0;">
+    <p style="margin-bottom:0.6rem;"><strong>Headline system-level indicators:</strong> four figures that should fall over the 10-year horizon if the recommendations succeed.</p>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">
+      <div style="background:#fff;padding:9px 8px;border-radius:6px;text-align:center;border:0.5px solid #e0e0e0;"><div style="font-size:11px;color:#666;">Child stunting</div><div style="font-size:13px;font-weight:500;color:#111;">21% → &lt;10%</div></div>
+      <div style="background:#fff;padding:9px 8px;border-radius:6px;text-align:center;border:0.5px solid #e0e0e0;"><div style="font-size:11px;color:#666;">Smallholders outside ISPO</div><div style="font-size:13px;font-weight:500;color:#111;">40-50% → &lt;15%</div></div>
+      <div style="background:#fff;padding:9px 8px;border-radius:6px;text-align:center;border:0.5px solid #e0e0e0;"><div style="font-size:11px;color:#666;">Unrecognised customary land</div><div style="font-size:13px;font-weight:500;color:#111;">6.8M ha → &lt;2M ha</div></div>
+      <div style="background:#fff;padding:9px 8px;border-radius:6px;text-align:center;border:0.5px solid #e0e0e0;"><div style="font-size:11px;color:#666;">East-west food insecurity gap</div><div style="font-size:13px;font-weight:500;color:#111;">narrowed by 50%</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- REFERENCES (persistent, shown in all sections via footer) -->
+<div class="ref-section">
+  <h3>References</h3>
+  <ul class="ref-list">
+    <li>Aliansi Masyarakat Adat Nusantara (AMAN). Wilayah Adat registration database, Badan Registrasi Wilayah Adat. <a href="https://www.aman.or.id" target="_blank">aman.or.id</a></li>
+    <li>Arizona, Y. and Cohen, M. (2024). The recognition of customary land rights at the Constitutional Court of Indonesia. <em>Brill Asian Law Series</em>, 12, 173&ndash;194. <a href="https://doi.org/10.1163/9789004514850_009" target="_blank">https://doi.org/10.1163/9789004514850_009</a></li>
+    <li>Aspinall, E. and Fealy, G. (eds.) (2003). <em>Local Power and Politics in Indonesia: Decentralisation and Democratisation</em>. Institute of Southeast Asian Studies, Singapore.</li>
+    <li>Astuti, R., Miller, M.A., McGregor, A., et al. (2022). Making illegality visible: the governance dilemmas created by visualising illegal palm oil plantations in Central Kalimantan, Indonesia. <em>Land Use Policy</em>, 114, 105942. <a href="https://doi.org/10.1016/j.landusepol.2021.105942" target="_blank">https://doi.org/10.1016/j.landusepol.2021.105942</a></li>
+    <li>Azrimaidaliza, A., Resmiati, R., Islami, G.F., Fasrini, U.U., and Apriliani, A.D. (2025). Is food insecurity higher among pregnant women in rural areas of Indonesia? <em>Gulhane Medical Journal</em>, 67(2), 108&ndash;115. <a href="https://doi.org/10.4274/gulhane.galenos.2025.24892" target="_blank">https://doi.org/10.4274/gulhane.galenos.2025.24892</a></li>
+    <li>Badan Pangan Nasional (National Food Agency, Indonesia). (2023). Food Security and Vulnerability Atlas (FSVA) 2023. Jakarta.</li>
+    <li>Beal, T., Tumilowicz, A., Sutrisna, A., Izwardy, D., and Neufeld, L.M. (2018). A review of child stunting determinants in Indonesia. <em>Maternal and Child Nutrition</em>, 14(4), e12617. <a href="https://doi.org/10.1111/mcn.12617" target="_blank">https://doi.org/10.1111/mcn.12617</a></li>
+    <li>Black, R.E., Victora, C.G., Walker, S.P., et al. (2013). Maternal and child undernutrition and overweight in low-income and middle-income countries. <em>The Lancet</em>, 382(9890), 427&ndash;451. <a href="https://doi.org/10.1016/S0140-6736(13)60937-X" target="_blank">https://doi.org/10.1016/S0140-6736(13)60937-X</a></li>
+    <li>Booth, A. (1998). <em>The Indonesian Economy in the Nineteenth and Twentieth Centuries: A History of Missed Opportunities</em>. Macmillan, London.</li>
+    <li>Booth, A. (2012). The performance of the Indonesian agricultural sector: twelve questions and some tentative answers. <em>Bulletin of Indonesian Economic Studies</em>, 48(2), 145&ndash;158. <a href="https://doi.org/10.1080/00074918.2012.694148" target="_blank">https://doi.org/10.1080/00074918.2012.694148</a></li>
+    <li>Colchester, M., Jiwan, N., Andiko, Sirait, M., Firdaus, A.Y., Surambo, A., and Pane, H. (2006). <em>Promised Land: Palm Oil and Land Acquisition in Indonesia</em>. Forest Peoples Programme and Sawit Watch, Bogor.</li>
+    <li>Constitutional Court of the Republic of Indonesia. (2012). Decision No. 35/PUU-X/2012 on the Constitutional Status of Customary Forests. Jakarta.</li>
+    <li>de Waal, A. (2018). <em>Mass Starvation: The History and Future of Famine</em>. Polity Press, Cambridge.</li>
+    <li>Elson, R.E. (1994). <em>Village Java under the Cultivation System, 1830&ndash;1870</em>. Allen &amp; Unwin, Sydney.</li>
+    <li>European Union. (2023). Regulation (EU) 2023/1115 on commodities associated with deforestation (EUDR). <em>Official Journal of the European Union</em>. <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115" target="_blank">eur-lex.europa.eu</a></li>
+    <li>FAO. (1996). Rome Declaration on World Food Security. World Food Summit, FAO, Rome. <a href="https://www.fao.org/3/w3613e/w3613e00.htm" target="_blank">fao.org</a></li>
+    <li>FAO. (2022). Indonesia at a glance: Country profile. <a href="https://www.fao.org/indonesia/en/" target="_blank">fao.org/indonesia</a></li>
+    <li>FAO. (2023). <em>The Status of Women in Agrifood Systems</em>. FAO, Rome. <a href="https://doi.org/10.4060/cc5343en" target="_blank">https://doi.org/10.4060/cc5343en</a></li>
+    <li>Ginting, S., Wongta, A., Ounjaijean, S., and Hongsibsong, S. (2025). Indonesia's indigenous Suku Anak Dalam: knowledge for food and environmental sustainability. <em>Frontiers in Sustainable Food Systems</em>, 9, 1587094. <a href="https://doi.org/10.3389/fsufs.2025.1587094" target="_blank">https://doi.org/10.3389/fsufs.2025.1587094</a></li>
+    <li>Galtung, J. (1969). Violence, peace, and peace research. <em>Journal of Peace Research</em>, 6(3), 167&ndash;191. <a href="https://doi.org/10.1177/002234336900600301" target="_blank">https://doi.org/10.1177/002234336900600301</a></li>
+    <li>Government of Indonesia. (1960). Basic Agrarian Law, Law No. 5 of 1960 (Undang-Undang Pokok Agraria). State Secretariat, Jakarta.</li>
+    <li>Government of Indonesia. (2015). BPN Ministerial Regulation No. 9 of 2015 on Communal Land Registration Procedures. National Land Agency, Jakarta.</li>
+    <li>Government of Indonesia. (2016). Presidential Regulation No. 1 of 2016 Concerning the Peatland Restoration Agency (BRG). State Secretariat, Jakarta.</li>
+    <li>Government of Indonesia. (2020). Presidential Regulation No. 44 of 2020 on the ISPO Certification System. State Secretariat, Jakarta.</li>
+    <li>Hill, H. (2000). <em>The Indonesian Economy</em>. 2nd ed. Cambridge University Press.</li>
+    <li>Intergovernmental Panel on Climate Change (IPCC). (2022). <em>Climate Change 2022: Impacts, Adaptation and Vulnerability. Chapter 10: Asia</em>. Working Group II contribution to the IPCC Sixth Assessment Report. Cambridge University Press. <a href="https://doi.org/10.1017/9781009325844.012" target="_blank">https://doi.org/10.1017/9781009325844.012</a></li>
+    <li>Juliannisa, I.A., Rahma, H., Mulatsih, S., and Fauzi, A. (2025). Regional vulnerability to food insecurity: the case of Indonesia. <em>Sustainability</em>, 17(11), 4800. <a href="https://doi.org/10.3390/su17114800" target="_blank">https://doi.org/10.3390/su17114800</a></li>
+    <li>LANDac / KIT. (2012). Food Security and Land Governance Factsheet: Indonesia. Royal Tropical Institute, Amsterdam. <a href="https://www.landac.nl/wp-content/uploads/2020/06/Indonesia_FS_and_Land_Governance_Factsheet.pdf" target="_blank">landac.nl</a></li>
+    <li>Lederach, J.P. (1997). <em>Building Peace: Sustainable Reconciliation in Divided Societies</em>. United States Institute of Peace Press, Washington, D.C.</li>
+    <li>Margono, B.A., Potapov, P.V., Turubanova, S., Stolle, F., and Hansen, M.C. (2014). Primary forest cover loss in Indonesia over 2000&ndash;2012. <em>Nature Climate Change</em>, 4, 730&ndash;735. <a href="https://doi.org/10.1038/nclimate2277" target="_blank">https://doi.org/10.1038/nclimate2277</a></li>
+    <li>Measey, M. (2010). Indonesia: a vulnerable country in the face of climate change. <em>Global Majority E-Journal</em>, 1(1), 31&ndash;45.</li>
+    <li>Ngongo, Y., deRosari, B., Basuki, T., Njurumana, G.N., Nugraha, Y., Harianja, A.H., Ardha, M., Kustiyo, K., Shofiyati, R., Heryanto, R.B., et al. (2023). Land cover change and food security in Central Sumba: challenges and opportunities in the decentralization era in Indonesia. <em>Land</em>, 12(5), 1043. <a href="https://doi.org/10.3390/land12051043" target="_blank">https://doi.org/10.3390/land12051043</a></li>
+    <li>Messer, E. and Cohen, M.J. (2015). Conflict, food insecurity, and globalization. <em>Food, Culture &amp; Society</em>, 18(2), 199&ndash;221. <a href="https://doi.org/10.1080/15528014.2015.1011996" target="_blank">https://doi.org/10.1080/15528014.2015.1011996</a></li>
+    <li>Ministry of Health of the Republic of Indonesia. (2023). Survei Kesehatan Indonesia (SKI) 2023. Badan Kebijakan Pembangunan Kesehatan, Jakarta.</li>
+    <li>Office of the Vice President of the Republic of Indonesia. (2018). National Strategy for the Acceleration of Stunting Reduction (STRANAS Stunting) 2018&ndash;2024. Jakarta.</li>
+    <li>Ostrom, E. (1990). <em>Governing the Commons: The Evolution of Institutions for Collective Action</em>. Cambridge University Press. <a href="https://doi.org/10.1017/CBO9780511807763" target="_blank">https://doi.org/10.1017/CBO9780511807763</a></li>
+    <li>Putnam, R.D. (2000). <em>Bowling Alone: The Collapse and Revival of American Community</em>. Simon &amp; Schuster, New York.</li>
+    <li>Quisumbing, A.R., Meinzen-Dick, R., Raney, T.L., Croppenstedt, A., Behrman, J.A., and Peterman, A. (eds.) (2014). <em>Gender in Agriculture: Closing the Knowledge Gap</em>. Springer and FAO. <a href="https://doi.org/10.1007/978-94-017-8616-4" target="_blank">https://doi.org/10.1007/978-94-017-8616-4</a></li>
+    <li>Rigg, J. (2006). Land, farming, livelihoods, and poverty: rethinking the links in the rural South. <em>World Development</em>, 34(1), 180&ndash;202. <a href="https://doi.org/10.1016/j.worlddev.2005.07.015" target="_blank">https://doi.org/10.1016/j.worlddev.2005.07.015</a></li>
+    <li>Rusmawati, E., Hartono, D., and Aritenang, A.F. (2023). Food security in Indonesia: the role of social capital. <em>Development Studies Research</em>, 10(1). <a href="https://doi.org/10.1080/21665095.2023.2169732" target="_blank">https://doi.org/10.1080/21665095.2023.2169732</a></li>
+    <li>Samputra, P.L. and Antriyandarti, E. (2024). Food insecurity among female farmers in rural West Sleman, Indonesia. <em>Agriculture &amp; Food Security</em>, 13(1). <a href="https://doi.org/10.1186/s40066-023-00453-1" target="_blank">https://doi.org/10.1186/s40066-023-00453-1</a></li>
+    <li>Statistics Indonesia (BPS). (2023). Agricultural Census 2023: Complete Enumeration Results. <a href="https://www.bps.go.id/en/pressrelease/2023/12/04/2050/complete-enumeration-results-of-the-agricultural-census-2023-phase-1.html" target="_blank">bps.go.id</a></li>
+    <li>Nugroho, H.Y.S.H., Basuki, T.M., Pramono, I.B., Savitri, E., Purwanto, Indrawati, D.R., Wahyuningrum, N., Adi, R.N., Indrajaya, Y., Supangat, A.B., et al. (2022). Forty years of soil and water conservation policy, implementation, research and development in Indonesia: a review. <em>Sustainability</em>, 14(5), 2972. <a href="https://doi.org/10.3390/su14052972" target="_blank">https://doi.org/10.3390/su14052972</a></li>
+    <li>Timmer, C.P. (1996). Does BULOG stabilise rice prices in Indonesia? Should it try? <em>Bulletin of Indonesian Economic Studies</em>, 32(2), 45&ndash;74. <a href="https://doi.org/10.1080/00074919612331336848" target="_blank">https://doi.org/10.1080/00074919612331336848</a></li>
+    <li>UNICEF Indonesia. (2023). Nutrition Situation Analysis: Indonesia. <a href="https://www.unicef.org/indonesia/nutrition" target="_blank">unicef.org/indonesia</a></li>
+    <li>UNICEF, WHO, and World Bank Group. (2023). Joint Child Malnutrition Estimates: Key Findings of the 2023 Edition. <a href="https://www.who.int/publications/i/item/9789240073791" target="_blank">who.int</a></li>
+    <li>United Nations. (2007). United Nations Declaration on the Rights of Indigenous Peoples (UNDRIP). Resolution A/RES/61/295, adopted 13 September 2007.</li>
+    <li>World Bank. (2022). <em>Indonesia Economic Prospects</em>. World Bank, Jakarta. <a href="https://www.worldbank.org/en/country/indonesia/publication/indonesia-economic-prospects-iep" target="_blank">worldbank.org</a></li>
+    <li>World Bank. (2023). World Development Indicators: Indonesia Agriculture. <a href="https://data.worldbank.org/indicator/NV.AGR.TOTL.ZS?locations=ID" target="_blank">data.worldbank.org</a></li>
+    <li>World Resources Institute. (2016). 3 Ways to Strengthen Customary Land Rights in Indonesia. <em>WRI Insights</em>. <a href="https://www.wri.org/insights/3-ways-strengthen-customary-land-rights-indonesia" target="_blank">wri.org</a></li>
+  </ul>
+</div>
+
+</div><!-- /storymap -->
+
+<!-- ═══════════════════════ MIND MAP ═══════════════════════ -->
+<div id="mindmap" class="tool-view">
+<div id="mm">
+  <div class="ctrl-bar">
+    <button class="mm-btn active" id="btn-all" onclick="filterBranch(null)">All</button>
+    <button class="mm-btn" id="btn-history" onclick="filterBranch('history')">History</button>
+    <button class="mm-btn" id="btn-crisis" onclick="filterBranch('crisis')">Crisis</button>
+    <button class="mm-btn" id="btn-margins" onclick="filterBranch('margins')">Groups</button>
+    <button class="mm-btn" id="btn-policy" onclick="filterBranch('policy')">Policy</button>
+    <button class="mm-btn" id="btn-solutions" onclick="filterBranch('solutions')">Solutions</button>
+    <div style="flex:1"></div>
+    <button class="mode-btn" id="btn-radial" onclick="setMode('radial')">Radial</button>
+    <button class="mode-btn active" id="btn-force" onclick="setMode('force')">Connections</button>
+    <div class="search-wrap"><input id="search-box" placeholder="Search nodes..." oninput="doSearch(this.value)"></div>
+  </div>
+  <div class="mm-legend">
+    <div class="leg-item"><div class="leg-dot" style="background:#185FA5"></div> Historical roots</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#854F0B"></div> Crisis today</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#3B6D11"></div> Marginalized groups</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#993C1D"></div> Policy landscape</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#534AB7"></div> Solutions</div>
+    <div class="leg-item"><div class="leg-dash" style="border-top:1.5px dashed #E24B4A;"></div><span style="font-size:11px;color:#666;">Cross-branch links (each uniquely colored)</span></div>
+  </div>
+  <div id="info-panel">
+    <h4 id="ip-title">Food insecurity in Indonesia</h4>
+    <p id="ip-body">A conflict transformation lens reveals food insecurity as structural violence rooted in colonial history, land inequality, and governance failures. Click any node to explore, or switch to Connections mode to see cross-branch links.</p>
+    <div id="sub-panel"></div>
+  </div>
+  <div id="mm-svg-wrap">
+    <svg id="mm-svg" width="100%" viewBox="0 0 900 600" style="display:block;pointer-events:none"></svg>
+  </div>
+  <p id="mm-hint">Click nodes to explore &middot; Filter by branch &middot; Switch between Radial and Connections views &middot; Search to highlight</p>
+</div>
+</div><!-- /mindmap -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+<script>
+function switchTool(id, btn) {
+  document.querySelectorAll('.tool-view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function show(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b => {
+    b.classList.toggle('active', b.getAttribute('onclick').includes("'" + id + "'"));
+  });
+}
+
+/* ══════ MIND MAP ══════ */
+const MMW=900,MMH=600,CX=450,CY=300;
+const MM_COLORS={
+  center:'#1B3A5C',
+  history:{branch:'#185FA5',light:'#E6F1FB',text:'#0C447C',leaf:'#B5D4F4'},
+  crisis:{branch:'#854F0B',light:'#FAEEDA',text:'#633806',leaf:'#FAC775'},
+  margins:{branch:'#3B6D11',light:'#EAF3DE',text:'#27500A',leaf:'#C0DD97'},
+  policy:{branch:'#993C1D',light:'#FAECE7',text:'#712B13',leaf:'#F5C4B3'},
+  solutions:{branch:'#534AB7',light:'#EEEDFE',text:'#3C3489',leaf:'#CECBF6'}
+};
+
+const mmNodes=[
+  {id:'center',label:'Food insecurity\nIndonesia',branch:'center',tier:0,
+   info:{title:'Food insecurity in Indonesia',body:'A conflict transformation lens reveals this as structural violence: harm produced by institutional arrangements that prevent communities from meeting basic needs. 21% of children under 5 are stunted; 40-50% of palm oil smallholders are excluded from ISPO. Five interconnected branches explain how.'},subs:[]},
+
+  {id:'h0',label:'Historical\nroots',branch:'history',tier:1,
+   info:{title:'Historical roots',body:'Three ruptures embedded structural inequalities that persist today: the Cultuurstelsel (1830-1870), the Green Revolution (1960s-80s), and recurring economic crises. (Elson, 1994; Booth, 1998)'},subs:['h1','h2','h3']},
+  {id:'h1',label:'Cultuurstelsel\n1830-1870',branch:'history',tier:2,
+   info:{title:'Dutch Cultivation System (1830-1870)',body:'Forced farmers to grow export crops, displacing subsistence agriculture and embedding land inequality for generations. ~70% of Indonesia\'s territory still falls under Ministry of Environment & Forestry jurisdiction, a direct descendant of this colonial land structure. (Elson, 1994; Booth, 1998)'},subs:[]},
+  {id:'h2',label:'Green Revolution\n1960s-80s',branch:'history',tier:2,
+   info:{title:'Green Revolution (1960s-80s)',body:'Achieved rice self-sufficiency but reinforced monoculture dependence. Today more than 55% of farms operate on less than 0.5 hectares and the agricultural workforce of 38-40 million is dominated by smallholders who were largely excluded from the Revolution\'s benefits. (Booth, 2012; BPS, 2023)'},subs:[]},
+  {id:'h3',label:'Crises expose\nfragility',branch:'history',tier:2,
+   info:{title:'Economic crises (1997-98 and 2020)',body:'Both the Asian Financial Crisis and COVID-19 revealed the same structural weakness: economic shocks translate immediately into food insecurity for the most marginalised households. (Elson, 1994; Booth, 1998)'},subs:[]},
+
+  {id:'c0',label:'The crisis\ntoday',branch:'crisis',tier:1,
+   info:{title:'The crisis today',body:'Food insecurity spans four dimensions: availability, access, utilisation, and stability. 21% child stunting is the clearest structural indicator. 38-40 million agricultural workers represent 28-30% of the national workforce. (FAO, 1996; BPS, 2023)'},subs:['c1','c2','c3']},
+  {id:'c1',label:'Stunting\n21% under-5s',branch:'crisis',tier:2,
+   info:{title:'Child stunting (21%)',body:'Approximately 21% of Indonesian children under five are stunted. This rate persists despite national income growth, proving caloric availability alone does not ensure nutritional security. Each stunted child faces reduced lifetime education and earnings. (Black et al., 2013; UNICEF Indonesia, 2023)'},subs:[]},
+  {id:'c2',label:'4 dimensions\navail-stability',branch:'crisis',tier:2,
+   info:{title:'Four dimensions of food security',body:'Availability: improved nationally. Access: unequal by income and region. Utilisation: micronutrient deficiencies widespread. Stability: fragile against economic and climate shocks. (FAO, 1996)'},subs:[]},
+  {id:'c3',label:'Regional gaps\nEast vs. West',branch:'crisis',tier:2,
+   info:{title:'Regional disparities',body:'Papua and East Nusa Tenggara face compounding disadvantages: poor transport raises food prices, agricultural productivity is lower, climate variability is higher, and state institutional capacity is weakest precisely where food insecurity is most severe. (Juliannisa et al., 2025; FAO, 2022)'},subs:[]},
+
+  {id:'m0',label:'Marginalized\ngroups',branch:'margins',tier:1,
+   info:{title:'Marginalized groups',body:'Women, indigenous communities, smallholders, and the urban poor bear the greatest burden. Each faces distinct but intersecting structural inequalities rooted in land, law, and policy.'},subs:['m1','m2','m3']},
+  {id:'m1',label:'Women\nfarmers',branch:'margins',tier:2,
+   info:{title:'Women farmers',body:'Face barriers to land ownership, credit, and extension services. Under faraid inheritance law, women receive reduced land shares, deepening food insecurity for female-headed households after displacement or disaster. (Samputra &amp; Antriyandarti, 2024; FAO, 2023)'},subs:[]},
+  {id:'m2',label:'Indigenous\ncommunities',branch:'margins',tier:2,
+   info:{title:'Indigenous communities (Suku Anak Dalam)',body:'Groups like the Suku Anak Dalam depend on forests for food. AMAN has documented 604 customary land maps covering 6.8 million hectares of territory that remains formally unrecognised by the state. Deforestation and lack of legal recognition leave communities vulnerable to displacement and food system collapse. (Ginting et al., 2025; Margono et al., 2014; Arizona &amp; Cohen, 2024)'},subs:[]},
+  {id:'m3',label:'Smallholders\n& urban poor',branch:'margins',tier:2,
+   info:{title:'Smallholders and urban poor',body:'Indonesia\'s 38-40 million agricultural workers are predominantly smallholders, with over 55% of farms under 0.5 hectares. Both smallholders and urban poor are largely invisible in rice self-sufficiency policy frameworks. (BPS, 2023; World Bank, 2023)'},subs:[]},
+
+  {id:'p0',label:'Policy\nlandscape',branch:'policy',tier:1,
+   info:{title:'Policy landscape',body:'Key instruments include ISPO (Pres. Reg. No. 44/2020), the EUDR (2023), rice self-sufficiency programs via Bulog, social protection (Rastra/BPNT), STRANAS (the National Strategy on Stunting Reduction), and the BRG/BRGM Desa Peduli Gambut program. Critical gap: no framework formally recognises 6.8M ha of customary land documented by AMAN.'},subs:['p1','p2','p3']},
+  {id:'p1',label:'ISPO & EUDR\nparadox',branch:'policy',tier:2,
+   info:{title:'ISPO and EUDR paradox',body:'ISPO (Pres. Reg. No. 44/2020) requires formal land title for certification, but 40-50% of palm oil smallholders fall outside ISPO because customary land rights cannot be converted to formal certificates. The EU Deforestation Regulation (2023) compounds this: smallholders without title are non-compliant by definition, creating market exclusion with no ecological benefit. (Arizona & Cohen, 2024; EU, 2023)'},subs:[]},
+  {id:'p2',label:'Social protection\nRastra/BPNT',branch:'policy',tier:2,
+   info:{title:'Social protection programs',body:'Subsidised rice (Rastra) and non-cash food assistance (BPNT) have reduced extreme hunger but coverage is uneven. Decentralisation produces significant variation in implementation quality. Provinces with the worst food insecurity are often those with the least institutional capacity. (Aspinall &amp; Fealy, 2003; World Bank, 2022)'},subs:[]},
+  {id:'p3',label:'BPN Reg 9/2015\nunderutilised',branch:'policy',tier:2,
+   info:{title:'BPN Ministerial Regulation No. 9/2015',body:'This regulation provides a formal mechanism for communal tenure recognition that already exists in Indonesian law but remains severely underutilised. Amending ISPO to accept adat community decrees issued under this regulation as equivalent tenure documentation is the most structurally sound reform pathway available. (Government of Indonesia, 2015)'},subs:[]},
+
+  {id:'s0',label:'Solutions\n& interventions',branch:'solutions',tier:1,
+   info:{title:'Solutions and interventions',body:"Seven recommendations organised across Lederach's three levels. Level 1 (top): land tenure reform, nutrition policy redesign. Level 2 (middle): gender mainstreaming, indigenous rights, community food systems. Level 3 (grassroots): climate-resilient agriculture, participatory governance."},subs:['s1','s2','s3']},
+  {id:'s1',label:'Land tenure\n& ISPO reform',branch:'solutions',tier:2,
+   info:{title:'Land tenure reform (Recommendation 1)',body:'Amend ISPO to accept adat decrees under BPN Reg. No. 9/2015 as equivalent tenure documentation. Use AMAN\'s 604 customary land maps as the evidentiary foundation. Obstacle: concession holder resistance and Ministry of Environment & Forestry reluctance. Interim: tiered ISPO compliance model. (Level 1)'},subs:[]},
+  {id:'s2',label:'Gender &\nindigenous rights',branch:'solutions',tier:2,
+   info:{title:'Gender mainstreaming and indigenous rights (Recommendations 3 & 4)',body:'Mandate gender analysis in all food security programs; address faraid inheritance barriers. Accelerate formal legal recognition of indigenous territorial rights using Constitutional Court Decision No. 35 (2012) and BPN Reg. No. 9/2015. Require FPIC for all development on customary land. (Level 2)'},subs:[]},
+  {id:'s3',label:'Participatory\ngovernance',branch:'solutions',tier:2,
+   info:{title:'Participatory governance and climate resilience (Recommendations 6 & 7)',body:'Scale agroecological farming through Soil and Water Conservation programs. Establish formal multi-stakeholder platforms integrating smallholder, women\'s, and indigenous voices. Build local government capacity in provinces with highest food insecurity needs. (Level 3)'},subs:[]},
+];
+
+// Each cross-link has: a, b, label, color. Routing:
+// - Default: signed curve offset (quadratic Bezier, perpendicular to chord).
+// - For links that must avoid multiple intervening nodes: explicit cubic cp1/cp2 control points.
+const mmCrossLinks=[
+  {a:'h1', b:'m2', label:'Land dispossession legacy',          color:'#185FA5', curve: 15},
+  {a:'h2', b:'p1', label:'Rice monoculture legacy',             color:'#854F0B', curve: 140},
+  {a:'h3', b:'p2', label:'Crisis & social protection gaps',     color:'#993C1D', curve: 145},
+  {a:'c1', b:'m1', label:'Maternal malnutrition → stunting',    color:'#D85A30', curve: 110},
+  // c3->s2: route via far-right corridor past margins branch (cubic)
+  {a:'c3', b:'s2', label:'Regional gaps → targeted reform',     color:'#534AB7', cp1x:880, cp1y:10,  cp2x:880, cp2y:400},
+  {a:'m1', b:'s2', label:"Women's land rights",                 color:'#3B6D11', curve:-80},
+  {a:'m2', b:'s1', label:'Indigenous land recognition',         color:'#0F6E56', curve:-155},
+  {a:'p1', b:'s1', label:'ISPO reform pathway',                 color:'#7F77DD', curve:-110},
+  {a:'p3', b:'s1', label:'BPN Reg. 9/2015 mechanism',          color:'#BA7517', curve: 110},
+  {a:'h2', b:'m3', label:'Green Rev. excluded smallholders',    color:'#5DCAA5', curve: 20},
+  // c1->m3: route via far top-right corner above crisis and margins tiers (cubic)
+  {a:'c1', b:'m3', label:'Stunting & smallholder households',   color:'#E24B4A', cp1x:700, cp1y:-80, cp2x:870, cp2y:80},
+];
+
+const mmById={};
+mmNodes.forEach(n=>mmById[n.id]=n);
+
+let mmMode='force', mmBranch=null, mmActive=null, mmSearch='';
+const mmSvg=document.getElementById('mm-svg');
+const SVG_NS='http://www.w3.org/2000/svg';
+function svgEl(tag,attrs={}){
+  const e=document.createElementNS(SVG_NS,tag);
+  Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));
+  return e;
+}
+function mmBranchAngle(b){return{history:210,crisis:270,margins:330,policy:150,solutions:90}[b]*(Math.PI/180);}
+function mmRadialPos(n){
+  if(n.id==='center') return{x:CX,y:CY};
+  const r=n.tier===1?170:250;
+  const base=mmBranchAngle(n.branch);
+  const sibs=mmNodes.filter(x=>x.branch===n.branch&&x.tier===n.tier);
+  const idx=sibs.findIndex(x=>x.id===n.id);
+  const spread=n.tier===1?0:(sibs.length-1)*0.18;
+  const offset=sibs.length>1?(idx/(sibs.length-1)-0.5)*spread:0;
+  const angle=base+offset;
+  return{x:CX+r*Math.cos(angle),y:CY+r*Math.sin(angle)};
+}
+const mmFPos={};
+function mmInitForce(){
+  mmNodes.forEach(n=>{const p=mmRadialPos(n);mmFPos[n.id]={x:p.x+(Math.random()-.5)*10,y:p.y+(Math.random()-.5)*10};});
+  mmFPos['center']={x:CX,y:CY};
+}
+mmInitForce();
+function mmNodeSize(n){if(n.id==='center')return{rx:52,ry:28};if(n.tier===1)return{rx:46,ry:24};return{rx:40,ry:21};}
+function mmNodeColor(n){
+  if(n.id==='center') return{fill:'#1B3A5C',stroke:'#1B3A5C',textFill:'#fff',subFill:'#B5D4F4'};
+  const c=MM_COLORS[n.branch];
+  return{fill:c.light,stroke:c.branch,textFill:c.text,subFill:c.branch};
+}
+let mmLinkLayer,mmNodeLayer;
+function mmBuildSvg(){
+  while(mmSvg.firstChild) mmSvg.removeChild(mmSvg.firstChild);
+  const defs=svgEl('defs');
+  // One arrowhead marker per cross-link color
+  const usedColors=new Set(mmCrossLinks.map(l=>l.color));
+  usedColors.forEach(col=>{
+    const id='arr-'+col.replace('#','');
+    const mk=svgEl('marker',{id,viewBox:'0 0 10 10',refX:8,refY:5,markerWidth:5,markerHeight:5,orient:'auto'});
+    const mp=svgEl('path',{d:'M1 1L9 5L1 9',fill:'none',stroke:col,'stroke-width':1.8,'stroke-linecap':'round','stroke-linejoin':'round'});
+    mk.appendChild(mp);defs.appendChild(mk);
+  });
+  mmSvg.appendChild(defs);
+  mmLinkLayer=svgEl('g');mmNodeLayer=svgEl('g');
+  mmSvg.appendChild(mmLinkLayer);mmSvg.appendChild(mmNodeLayer);
+  mmDrawLinks();mmDrawNodes();
+}
+function mmGetPos(n){return mmMode==='radial'?mmRadialPos(n):mmFPos[n.id];}
+function mmDrawLinks(){
+  while(mmLinkLayer.firstChild) mmLinkLayer.removeChild(mmLinkLayer.firstChild);
+  // Branch connector lines
+  mmNodes.forEach(n=>{
+    if(n.id==='center') return;
+    const par=n.tier===1?mmById['center']:mmNodes.find(x=>x.branch===n.branch&&x.tier===1);
+    if(!par) return;
+    const p1=mmGetPos(par),p2=mmGetPos(n);
+    const hidden=mmBranch&&n.branch!==mmBranch;
+    const c=MM_COLORS[n.branch];
+    mmLinkLayer.appendChild(svgEl('line',{x1:p1.x,y1:p1.y,x2:p2.x,y2:p2.y,stroke:c.branch,'stroke-width':n.tier===1?1.5:0.8,opacity:hidden?.04:.4}));
+  });
+  // Cross-links: individually colored, curved, labeled with background pill.
+  // Supports both quadratic (curve value) and cubic (cp1x/cp1y/cp2x/cp2y) routing.
+  if(mmMode==='force'){
+    mmCrossLinks.forEach(lk=>{
+      const na=mmById[lk.a],nb=mmById[lk.b];if(!na||!nb) return;
+      const ha=mmBranch&&na.branch!==mmBranch,hb=mmBranch&&nb.branch!==mmBranch;
+      const hidden=ha&&hb;
+      const op=hidden?.04:.75;
+      const pa=mmGetPos(na),pb=mmGetPos(nb);
+      const dx=pb.x-pa.x,dy=pb.y-pa.y,len=Math.sqrt(dx*dx+dy*dy)||1;
+      // Shorten start endpoint so line doesn't plunge into source node
+      const shrink=22;
+      const sx1=pa.x+dx/len*shrink, sy1=pa.y+dy/len*shrink;
+      const arrid='arr-'+lk.color.replace('#','');
+      let pathD, labelX, labelY;
+      if(lk.cp1x!==undefined){
+        // Cubic Bezier: explicit CP1 and CP2 for routing through open canvas areas
+        pathD='M'+sx1+' '+sy1+' C'+lk.cp1x+' '+lk.cp1y+','+lk.cp2x+' '+lk.cp2y+','+pb.x+' '+pb.y;
+        // Label at t=0.5 on the cubic curve: B(0.5)=0.125*P0+0.375*CP1+0.375*CP2+0.125*P3
+        labelX=0.125*pa.x+0.375*lk.cp1x+0.375*lk.cp2x+0.125*pb.x;
+        labelY=0.125*pa.y+0.375*lk.cp1y+0.375*lk.cp2y+0.125*pb.y;
+      } else {
+        // Quadratic Bezier with perpendicular offset
+        const perp=lk.curve;
+        const mx=(pa.x+pb.x)/2,my=(pa.y+pb.y)/2;
+        const cpx=mx-dy/len*perp, cpy=my+dx/len*perp;
+        pathD='M'+sx1+' '+sy1+' Q'+cpx+' '+cpy+' '+pb.x+' '+pb.y;
+        labelX=cpx; labelY=cpy;
+      }
+      mmLinkLayer.appendChild(svgEl('path',{
+        d:pathD, fill:'none', stroke:lk.color, 'stroke-width':1.5,
+        'stroke-dasharray':'5 3', opacity:op, 'marker-end':'url(#'+arrid+')'
+      }));
+      // Label: white background rect + colored text at curve midpoint
+      const llen=lk.label.length*4.6+8;
+      const lh=14;
+      const bg=svgEl('rect',{x:labelX-llen/2,y:labelY-lh/2,width:llen,height:lh,rx:3,
+        fill:'#fff',opacity:hidden?.04:.92,stroke:lk.color,'stroke-width':0.5,
+        'stroke-opacity':hidden?.04:.6});
+      mmLinkLayer.appendChild(bg);
+      const lt=svgEl('text',{x:labelX,y:labelY+4.5,'font-size':8.5,'text-anchor':'middle',
+        fill:lk.color,'font-family':'sans-serif','font-weight':500,opacity:hidden?.04:.95});
+      lt.textContent=lk.label;
+      mmLinkLayer.appendChild(lt);
+    });
+  }
+}
+function mmDrawNodes(){
+  while(mmNodeLayer.firstChild) mmNodeLayer.removeChild(mmNodeLayer.firstChild);
+  mmNodes.forEach(n=>{
+    const pos=mmGetPos(n);
+    const sz=mmNodeSize(n);const col=mmNodeColor(n);
+    const hidden=mmBranch&&n.branch!=='center'&&n.branch!==mmBranch;
+    const searched=mmSearch&&n.label.toLowerCase().includes(mmSearch.toLowerCase());
+    const isActive=mmActive===n.id;
+    const g=svgEl('g',{cursor:'pointer',opacity:hidden?.1:1,'pointer-events':'all',transform:'translate('+pos.x+','+pos.y+')'});
+    if(searched) g.appendChild(svgEl('ellipse',{cx:0,cy:0,rx:sz.rx+6,ry:sz.ry+6,fill:'#F2A623',opacity:.35}));
+    const ell=svgEl('ellipse',{cx:0,cy:0,rx:sz.rx,ry:sz.ry,fill:isActive?col.stroke:col.fill,stroke:col.stroke,'stroke-width':isActive?2:0.8});
+    g.appendChild(ell);
+    const lines=n.label.split('\n');
+    const t=svgEl('text',{'text-anchor':'middle','font-family':'sans-serif'});
+    lines.forEach((line,i)=>{
+      const ts=svgEl('tspan',{x:0,dy:i===0?(-(lines.length-1)*6)+'px':'12px','font-size':n.id==='center'?11:10,'font-weight':i===0?500:400,fill:i===0?(isActive?'#fff':col.textFill):(isActive?'rgba(255,255,255,.8)':col.subFill)});
+      ts.textContent=line;t.appendChild(ts);
+    });
+    g.appendChild(t);
+    const fillNormal=col.fill,fillHover=col.stroke;
+    g.addEventListener('mouseenter',()=>{if(!isActive){ell.setAttribute('fill',fillHover);t.querySelectorAll('tspan').forEach(ts=>ts.setAttribute('fill','#fff'));}});
+    g.addEventListener('mouseleave',()=>{if(!isActive){ell.setAttribute('fill',fillNormal);t.querySelectorAll('tspan').forEach((ts,i)=>ts.setAttribute('fill',i===0?col.textFill:col.subFill));}});
+    g.addEventListener('click',()=>mmSelectNode(n.id));
+    mmNodeLayer.appendChild(g);
+  });
+}
+function mmSelectNode(id){
+  mmActive=mmActive===id?null:id;
+  const n=mmById[id];
+  const sp=document.getElementById('sub-panel');
+  if(!mmActive||!n){
+    document.getElementById('ip-title').textContent='Food insecurity in Indonesia';
+    document.getElementById('ip-body').textContent='A conflict transformation lens reveals food insecurity as structural violence rooted in colonial history, land inequality, and governance failures. Click any node to explore.';
+    sp.style.display='none';mmActive=null;
+  } else {
+    document.getElementById('ip-title').textContent=n.info.title;
+    document.getElementById('ip-body').textContent=n.info.body;
+    if(n.subs&&n.subs.length>0){
+      sp.style.display='block';
+      sp.innerHTML='<div style="font-size:11px;color:#aaa;margin-bottom:4px;">Sub-topics:</div>';
+      n.subs.forEach(sid=>{
+        const sn=mmById[sid];if(!sn) return;
+        const d=document.createElement('div');d.className='sub-item';
+        d.textContent=sn.label.replace('\n',' ');
+        d.addEventListener('click',e=>{e.stopPropagation();mmSelectNode(sid);});
+        sp.appendChild(d);
+      });
+    } else {
+      const rels=mmCrossLinks.filter(l=>l.a===id||l.b===id);
+      if(rels.length>0&&mmMode==='force'){
+        sp.style.display='block';
+        sp.innerHTML='<div style="font-size:11px;color:#aaa;margin-bottom:4px;">Connected to:</div>';
+        rels.forEach(lk=>{
+          const oid=lk.a===id?lk.b:lk.a,on=mmById[oid];if(!on) return;
+          const d=document.createElement('div');d.className='sub-item';
+          d.textContent=on.label.replace('\n',' ')+' — '+lk.label;
+          d.addEventListener('click',e=>{e.stopPropagation();mmSelectNode(oid);});
+          sp.appendChild(d);
+        });
+      } else {sp.style.display='none';}
+    }
+  }
+  mmDrawLinks();mmDrawNodes();
+}
+function filterBranch(branch){
+  mmBranch=branch;
+  document.querySelectorAll('.mm-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('btn-'+(branch||'all')).classList.add('active');
+  const labels={
+    history:{t:'Historical roots',b:"Three ruptures shaped today's food insecurity: the Cultuurstelsel (1830-1870), the Green Revolution (1960s-80s), and recurring crises in 1997-98 and 2020. Over 55% of farms still operate on less than 0.5 hectares."},
+    crisis:{t:'The crisis today',b:'21% of children under 5 are stunted; 38-40 million workers form the agricultural workforce. Eastern provinces face the highest food insecurity.'},
+    margins:{t:'Marginalized groups',b:'Women, indigenous communities, smallholders, and the urban poor face intersecting structural inequalities. AMAN has documented 604 customary land maps covering 6.8M hectares unrecognised by the state.'},
+    policy:{t:'Policy landscape',b:'Key instruments: ISPO (Pres. Reg. 44/2020), EUDR (2023), Rastra/BPNT, STRANAS (stunting reduction), BPN Reg. 9/2015, and BRG/BRGM Desa Peduli Gambut. Critical gap: 40-50% of palm oil smallholders fall outside ISPO.'},
+    solutions:{t:'Solutions and interventions',b:"Seven recommendations across Lederach's three levels: (1) land tenure & ISPO reform, (2) nutrition policy redesign, (3) gender mainstreaming, (4) indigenous rights, (5) community food systems, (6) climate-resilient agriculture, (7) participatory governance."}
+  };
+  if(branch&&labels[branch]){
+    document.getElementById('ip-title').textContent=labels[branch].t;
+    document.getElementById('ip-body').textContent=labels[branch].b;
+  } else {
+    document.getElementById('ip-title').textContent='Food insecurity in Indonesia';
+    document.getElementById('ip-body').textContent='A conflict transformation lens reveals food insecurity as structural violence rooted in colonial history, land inequality, and governance failures. Click any node to explore.';
+  }
+  document.getElementById('sub-panel').style.display='none';
+  mmDrawLinks();mmDrawNodes();
+}
+function setMode(mode){
+  mmMode=mode;
+  document.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('btn-'+mode).classList.add('active');
+  if(mode==='force') mmRunForce(80);
+  mmDrawLinks();mmDrawNodes();
+  document.getElementById('mm-hint').textContent=mode==='force'
+    ?'Connections mode: dashed lines show cross-branch relationships — click nodes to explore links'
+    :'Radial mode: clean layout — click nodes to explore — switch to Connections for cross-links';
+}
+function doSearch(val){mmSearch=val.trim();mmDrawNodes();}
+function mmRunForce(iters){
+  const edges=[];
+  mmNodes.forEach(n=>{
+    if(n.id==='center') return;
+    const par=n.tier===1?mmById['center']:mmNodes.find(x=>x.branch===n.branch&&x.tier===1);
+    if(par) edges.push({a:n.id,b:par.id,len:n.tier===1?145:105,str:0.08});
+  });
+  mmCrossLinks.forEach(lk=>edges.push({a:lk.a,b:lk.b,len:200,str:0.02}));
+  mmNodes.forEach(n=>{const p=mmRadialPos(n);mmFPos[n.id]={x:p.x+(Math.random()-.5)*10,y:p.y+(Math.random()-.5)*10};});
+  mmFPos['center']={x:CX,y:CY};
+  for(let i=0;i<iters;i++){
+    const disp={};
+    mmNodes.forEach(n=>disp[n.id]={x:0,y:0});
+    for(let a=0;a<mmNodes.length;a++){
+      for(let b=a+1;b<mmNodes.length;b++){
+        const na=mmNodes[a],nb=mmNodes[b];
+        const pa=mmFPos[na.id],pb=mmFPos[nb.id];
+        const dx=pb.x-pa.x,dy=pb.y-pa.y,d=Math.sqrt(dx*dx+dy*dy)||1;
+        const rep=1800/(d*d);
+        disp[na.id].x-=rep*dx/d;disp[na.id].y-=rep*dy/d;
+        disp[nb.id].x+=rep*dx/d;disp[nb.id].y+=rep*dy/d;
+      }
+    }
+    edges.forEach(e=>{
+      const pa=mmFPos[e.a],pb=mmFPos[e.b];
+      const dx=pb.x-pa.x,dy=pb.y-pa.y,d=Math.sqrt(dx*dx+dy*dy)||1;
+      const f=(d-e.len)*e.str;
+      disp[e.a].x+=f*dx/d;disp[e.a].y+=f*dy/d;
+      disp[e.b].x-=f*dx/d;disp[e.b].y-=f*dy/d;
+    });
+    const temp=8*(1-i/iters);
+    mmNodes.forEach(n=>{
+      if(n.id==='center') return;
+      const d=disp[n.id],mag=Math.sqrt(d.x*d.x+d.y*d.y)||1,cap=Math.min(mag,temp);
+      mmFPos[n.id].x=Math.max(60,Math.min(MMW-60,mmFPos[n.id].x+d.x/mag*cap));
+      mmFPos[n.id].y=Math.max(40,Math.min(MMH-40,mmFPos[n.id].y+d.y/mag*cap));
+    });
+  }
+}
+mmRunForce(80);
+mmBuildSvg();
+
+/* D3 map */
+const mapDiv=document.getElementById('idn-map');
+const mw=mapDiv?(mapDiv.clientWidth||340):340;
+const mh=220;
+const d3svg=d3.select('#idn-map').append('svg').attr('viewBox','0 0 '+mw+' '+mh).attr('width','100%').attr('height',mh);
+const proj=d3.geoNaturalEarth1().scale(mw*1.1).center([118,-2]).translate([mw/2,mh/2]);
+const gpath=d3.geoPath(proj);
+d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json').then(world=>{
+  const feats=topojson.feature(world,world.objects.countries).features;
+  d3svg.selectAll('.nb').data(feats.filter(f=>[356,104,764,458,608,626,36,554].includes(+f.id))).join('path').attr('d',gpath).attr('fill','#F1EFE8').attr('stroke','#D3D1C7').attr('stroke-width',0.5);
+  d3svg.selectAll('.id').data(feats.filter(f=>f.id==360)).join('path').attr('d',gpath).attr('fill','#378ADD').attr('stroke','#fff').attr('stroke-width',0.7);
+  [{label:'Java / Sumatra',x:mw*.38,y:mh*.52,col:'#0F6E56'},{label:'Papua (highest insecurity)',x:mw*.75,y:mh*.58,col:'#854F0B'},{label:'East Nusa Tenggara',x:mw*.6,y:mh*.72,col:'#854F0B'}]
+  .forEach(a=>d3svg.append('text').attr('x',a.x).attr('y',a.y).attr('text-anchor','middle').attr('font-size',9.5).attr('font-family','sans-serif').attr('fill',a.col).attr('font-weight',500).text(a.label));
+}).catch(()=>{d3svg.append('text').attr('x',mw/2).attr('y',mh/2).attr('text-anchor','middle').attr('fill','#185FA5').attr('font-size',12).text('Map loading...');});
+</script>
+</body>
+</html>
